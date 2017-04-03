@@ -18,14 +18,16 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class DayStadisticFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //Claves para coger los parámetros que recibe el fragmento.
+    private static final String ARG_PROTEINAS= "proteinas";
+    private static final String ARG_KILO = "kilocalorias";
+    private static final String ARG_GRASAS = "grasas";
+    private static final String ARG_HIDRATOS = "hidratos";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Integer proteinas;  //Proteinas del dia.
+    private Integer kilocalorias;   //Kilocalorias del dia.
+    private Integer grasas;     //Grasas del dia.
+    private Integer hidratos;   //Hidratos del dia.
 
     private OnFragmentInteractionListener mListener;
 
@@ -33,7 +35,6 @@ public class DayStadisticFragment extends Fragment {
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static DayStadisticFragment newInstance() {
         DayStadisticFragment fragment = new DayStadisticFragment();
         Bundle args = new Bundle();
@@ -44,9 +45,12 @@ public class DayStadisticFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Si se pasan argumentos. Los cogemos.
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            proteinas = getArguments().getInt(ARG_PROTEINAS);
+            kilocalorias = getArguments().getInt(ARG_KILO);
+            grasas = getArguments().getInt(ARG_GRASAS);
+            hidratos = getArguments().getInt(ARG_HIDRATOS);
         }
     }
 
@@ -57,7 +61,6 @@ public class DayStadisticFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_day_stadistic, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
