@@ -3,10 +3,9 @@ package com.haleat.haleat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
-import android.graphics.Matrix;
-import android.graphics.RectF;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCaptureSession;
@@ -47,13 +46,13 @@ import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
 
-    private TextureView textureView;
+    private TextureView textureView;    //Vista donde se visualiza la cámara.
     private ImageButton takePictureButton;  //Botón de la cámara para realizar la foto
     private ImageButton menuButton; //Botón para acceder al panel lateral de la pantalla.
     private DrawerLayout mDrawerLayout; //Layout principal
     private ArrayAdapter<String> mAdapter;
     private String cameraId; //ID de la camara
-    private Size imageDimension;
+    private Size imageDimension;    //Dimensiones que soporta la cámara.
     private static final int REQUEST_CAMERA_PERMISSION = 200;
     private CameraDevice cameraDevice; //Representa a la cámara del dispositivo.
     protected CaptureRequest.Builder captureRequestBuilder;
@@ -62,7 +61,6 @@ public class CameraActivity extends AppCompatActivity {
     private Handler mBackgroundHandler;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
         ORIENTATIONS.append(Surface.ROTATION_90, 0);
@@ -70,6 +68,9 @@ public class CameraActivity extends AppCompatActivity {
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
+    /*
+    * Listener de la vista donde se visualiza la cámara.
+     */
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -79,7 +80,6 @@ public class CameraActivity extends AppCompatActivity {
         @Override
         public void onSurfaceTextureSizeChanged(SurfaceTexture surface, int width, int height) {
             // Transform you image captured size according to the surface width and height
-            configureTransform(width,height);
         }
 
         @Override
@@ -92,6 +92,9 @@ public class CameraActivity extends AppCompatActivity {
         }
     };
 
+    /*
+    * Callback correspondiente a la cámara conectada. Registra cuando nos conectamos o desconectamos a ella o cuando se produce un error.
+     */
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(CameraDevice camera) {
@@ -113,19 +116,22 @@ public class CameraActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         textureView = (TextureView) findViewById(R.id.texture);
         textureView.setSurfaceTextureListener(textureListener);
+        //Definimos los botones de la pantalla.
         takePictureButton = (ImageButton) findViewById(R.id.btn_takepicture);
+        menuButton = (ImageButton) findViewById(R.id.btn_menu);
+        //Agregamos los listener de los correspondientes botones.
         takePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 takePicture();
             }
         });
-        menuButton = (ImageButton) findViewById(R.id.btn_menu);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,22 +140,46 @@ public class CameraActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    * Llama a la actividad MainActivity. Esta función se debe llamra cuando se pulsa el botón menuButton.
+     */
     private void launchMainActivity() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
+    /*
+    * Cuando la aplicación se encientre en este estado se debe cerrar la conexión con la cámara.
+     */
     public void onPause() {
         closeCamera();
         super.onPause();
     }
 
+    /*
+    * Coge le id de la cámara trasera, la dimension del stream soportado por esta y realiza la conexión con la cámara.
+     */
     public void openCamera() {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
-            cameraId = manager.getCameraIdList()[0];
-            CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
-            StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+            StreamConfigurationMap map = null;
+            for (String mCameraId : manager.getCameraIdList()) {
+                CameraCharacteristics characteristics = manager.getCameraCharacteristics(mCameraId);
+
+                // No utilizamos la cámara delantera
+                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+                if (facing != null && facing == CameraCharacteristics.LENS_FACING_FRONT) {
+                    continue;
+                }
+
+                map = characteristics.get(
+                        CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+                if (map == null) {
+                    continue;
+                }
+                cameraId = mCameraId;
+                break;
+            }
             imageDimension = map.getOutputSizes(SurfaceTexture.class)[0];
             // Add permission for camera and let user grant the permission
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED &&
@@ -165,6 +195,9 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    * Cierra la conexión con la cámara.
+     */
     private void closeCamera() {
         try {
             if (null != cameraCaptureSessions) {
@@ -180,6 +213,9 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    * Crea la previsualización de la cámara en la pantalla.
+     */
     protected void createCameraPreview() {
         try {
             SurfaceTexture texture = textureView.getSurfaceTexture();
@@ -206,6 +242,9 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    * Crea el objeto captureRequestBuilder necesario para tomar imágenes.
+     */
     protected void setRequest() {
         try {
             captureRequestBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
@@ -224,6 +263,9 @@ public class CameraActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    * Captura la imagen de la pantalla de la cámara. Esta función se llama cuando se pulsa el botón takePictureButton.
+     */
     protected void takePicture() {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
         try {
@@ -308,26 +350,5 @@ public class CameraActivity extends AppCompatActivity {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    private void configureTransform(int viewWidth, int viewHeight) {
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        Matrix matrix = new Matrix();
-        RectF viewRect = new RectF(0, 0, viewWidth, viewHeight);
-        RectF bufferRect = new RectF(0, 0, imageDimension.getHeight(), imageDimension.getWidth());
-        float centerX = viewRect.centerX();
-        float centerY = viewRect.centerY();
-        if (Surface.ROTATION_90 == rotation || Surface.ROTATION_270 == rotation) {
-            bufferRect.offset(centerX - bufferRect.centerX(), centerY - bufferRect.centerY());
-            matrix.setRectToRect(viewRect, bufferRect, Matrix.ScaleToFit.FILL);
-            float scale = Math.max(
-                    (float) viewHeight / imageDimension.getHeight(),
-                    (float) viewWidth / imageDimension.getWidth());
-            matrix.postScale(scale, scale, centerX, centerY);
-            matrix.postRotate(90 * (rotation - 2), centerX, centerY);
-        } else if (Surface.ROTATION_180 == rotation) {
-            matrix.postRotate(180, centerX, centerY);
-        }
-        textureView.setTransform(matrix);
     }
 }
