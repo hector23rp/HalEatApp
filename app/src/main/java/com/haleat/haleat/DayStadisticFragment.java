@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 /**
@@ -28,6 +29,16 @@ public class DayStadisticFragment extends Fragment {
     private Integer kilocalorias;   //Kilocalorias del dia.
     private Integer grasas;     //Grasas del dia.
     private Integer hidratos;   //Hidratos del dia.
+
+    private RectView rectProteinas;
+    private RectView rectCalorias;
+    private RectView rectGrasas;
+    private RectView rectHidratos;
+
+    private TextView textProteinas;
+    private TextView textCalorias;
+    private TextView textGrasas;
+    private TextView textHidratos;
 
     private OnFragmentInteractionListener mListener;
 
@@ -58,7 +69,42 @@ public class DayStadisticFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_day_stadistic, container, false);
+        View view = inflater.inflate(R.layout.fragment_day_stadistic, container, false);
+        //Declaramos los progressBar de cada compoenente
+        rectProteinas = (RectView) view.findViewById(R.id.rect_proteins_day);
+        rectCalorias = (RectView) view.findViewById(R.id.rect_calories_day);
+        rectGrasas = (RectView) view.findViewById(R.id.rect_grasas_day);
+        rectHidratos = (RectView) view.findViewById(R.id.rect_hidratos_day);
+        //Declaramos los textView
+        textProteinas = (TextView) view.findViewById(R.id.text_proteinas);
+        textCalorias = (TextView) view.findViewById(R.id.text_calorias);
+        textGrasas = (TextView) view.findViewById(R.id.text_grasas);
+        textHidratos = (TextView) view.findViewById(R.id.text_hidratos);
+        //Agregamos el ancho de cada cuadrado a partir de los valores de cada componente.
+        setParamsWidth();
+        return view;
+    }
+
+    /**
+     * Configura el ancho del cuadrado de cada componente de la pantalla a partir de sus respectivos valores.
+     */
+    public void setParamsWidth(){
+        ViewGroup.LayoutParams paramsCalorias = rectCalorias.getLayoutParams();
+        paramsCalorias.width = kilocalorias;
+        textCalorias.setText(String.valueOf(kilocalorias));
+        rectCalorias.setLayoutParams(paramsCalorias);
+        ViewGroup.LayoutParams paramsProteinas = rectProteinas.getLayoutParams();
+        paramsProteinas.width = proteinas;
+        textProteinas.setText(String.valueOf(proteinas));
+        rectProteinas.setLayoutParams(paramsProteinas);
+        ViewGroup.LayoutParams paramsGrasas = rectGrasas.getLayoutParams();
+        paramsGrasas.width = grasas;
+        textGrasas.setText(String.valueOf(grasas));
+        rectGrasas.setLayoutParams(paramsGrasas);
+        ViewGroup.LayoutParams paramsHidratos = rectHidratos.getLayoutParams();
+        paramsHidratos.width = hidratos;
+        textHidratos.setText(String.valueOf(hidratos));
+        rectHidratos.setLayoutParams(paramsHidratos);
     }
 
     public void onButtonPressed(Uri uri) {

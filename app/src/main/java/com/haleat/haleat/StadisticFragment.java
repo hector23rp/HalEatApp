@@ -1,6 +1,5 @@
 package com.haleat.haleat;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,6 +23,8 @@ public class StadisticFragment extends Fragment{
     public StadisticFragment() {
         // Required empty public constructor
     }
+
+    private TextView titleView; //Titulo de la pantalla
 
     // TODO: Rename and change types and number of parameters
     public static StadisticFragment newInstance() {
@@ -41,6 +43,7 @@ public class StadisticFragment extends Fragment{
         //Inicializamos los mapas que contienen los parámetros de las estadísticas.
         mapStadisticDay = new HashMap<String, Integer>();
         mapStadisticWeek = new HashMap<String, Integer>();
+        titleView = (TextView) getActivity().findViewById(R.id.title);
         //Realizamos la petición al servidor.
         //requestServer();
         initMaps();
@@ -75,8 +78,7 @@ public class StadisticFragment extends Fragment{
      * @param title
      */
     public void selectStadistic(String title){
-        Activity activity = getActivity();
-        activity.setTitle(title);
+        titleView.setText(title);
         //Si el titulo es día, inicializamos el fragmento de las estadísticas del día.
         if(title.equals("Dia")){
             Fragment fragment = DayStadisticFragment.newInstance();

@@ -44,4 +44,8 @@ public class RectView extends View{
         int newBottom = this.getTop()+(2*height/3);
         canvas.drawRect(this.getLeft(),newTop,this.getRight(),newBottom,paint);
     }
+
+    public void setWidth(int width){
+
+    }
 }

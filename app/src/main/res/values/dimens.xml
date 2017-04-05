@@ -16,7 +16,8 @@
     <dimen name="perfil_image_size">64dp</dimen>
 
     <!-- Fragment Stadistic -->
-    <dimen name="font_component">20dp</dimen>
+    <dimen name="font_component">18dp</dimen>
     <dimen name="marginLeft_component">260dp</dimen>
     <dimen name="font_title_size">36sp</dimen>
+
 </resources>

@@ -7,50 +7,81 @@
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="@string/day"
-            android:gravity="center"
-            android:textSize="@dimen/font_title_size" />
+        android:orientation="vertical"
+        android:background="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="59dp"
             android:orientation="horizontal"
             android:id="@+id/layout_calories_day">
-            <com.haleat.haleat.RectView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/rect_calories_day" />
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_calorias"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="120dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic"/>
+
+                <com.haleat.haleat.RectView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/rect_calories_day"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:text="@string/calories"
                 android:gravity="center"
-                android:layout_marginLeft="27dp"
-                android:textSize="@dimen/font_component"/>
+                android:textSize="@dimen/font_component"
+                android:textStyle="italic"/>
+
         </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="59dp"
             android:orientation="horizontal"
             android:id="@+id/layout_proteins_day">
-            <com.haleat.haleat.RectView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/rect_proteins_day" />
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_proteinas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="120dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic"/>
+
+                <com.haleat.haleat.RectView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/rect_proteins_day"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -58,30 +89,93 @@
                 android:layout_weight="1"
                 android:text="@string/proteins"
                 android:gravity="center"
-                android:layout_marginLeft="27dp"
-                android:textSize="@dimen/font_component"/>
+                android:textSize="@dimen/font_component"
+                android:textStyle="italic"/>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="56dp"
             android:orientation="horizontal"
-            android:id="@+id/layout_grams_day">
-            <com.haleat.haleat.RectView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:id="@+id/rect_grams_day" />
+            android:id="@+id/layout_grasas_day">
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_grasas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="120dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic"/>
+
+                <com.haleat.haleat.RectView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/rect_grasas_day"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="@string/grams"
+                android:text="@string/grasas"
                 android:gravity="center"
-                android:layout_marginLeft="27dp"
-                android:textSize="@dimen/font_component"/>
+                android:textSize="@dimen/font_component"
+                android:textStyle="italic"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:id="@+id/layout_hidratos_day">
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_hidratos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="120dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic"/>
+
+                <com.haleat.haleat.RectView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/rect_hidratos_day"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/hidratos"
+                android:gravity="center"
+                android:textSize="@dimen/font_component"
+                android:textStyle="italic"/>
+
         </LinearLayout>
 
     </LinearLayout>

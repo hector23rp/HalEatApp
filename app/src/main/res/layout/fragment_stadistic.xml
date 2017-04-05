@@ -4,42 +4,44 @@
     android:layout_height="match_parent"
     tools:context="com.haleat.haleat.StadisticFragment">
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/button_day"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:layout_width="wrap_content"
-            android:text="@string/day"
-            android:background="@drawable/button_day">
-        </Button>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button_week"
-            android:layout_height="match_parent"
-            android:layout_weight=".5"
-            android:layout_width="wrap_content"
-            android:text="@string/week"
-            android:background="@drawable/button_day">
-        </Button>
+            <Button
+                android:id="@+id/button_day"
+                android:text="@string/day"
+                android:background="@drawable/button_day"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:layout_width="150dp"
+                android:layout_marginLeft="30dp">
+            </Button>
+
+            <Button
+                android:id="@+id/button_week"
+                android:layout_height="match_parent"
+                android:layout_weight=".5"
+                android:layout_width="150dp"
+                android:layout_marginLeft="200dp"
+                android:text="@string/week"
+                android:background="@drawable/button_day">
+            </Button>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/stadistic_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/stadistic_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-</LinearLayout>
 
 
 </FrameLayout>

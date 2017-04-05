@@ -1,19 +1,20 @@
 package com.haleat.haleat;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements DayStadisticFragment.OnFragmentInteractionListener, WeekStadisticFragment.OnFragmentInteractionListener{
     /**
@@ -26,52 +27,31 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
      */
     private String drawerTitle;
 
+    private TextView titleView; //Titulo de la pantalla
+    private ImageButton buttonCamera;    //Botón que nos lleva a la actividad de la cámara
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        setToolbar(); // Setear Toolbar como action bar
-
+        //Definimos los componentes de la pantalla
+        titleView = (TextView) findViewById(R.id.title);
+        buttonCamera = (ImageButton) findViewById(R.id.buttonCamera);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setupDrawerContent(navigationView);
-        }
+        //Añadimos el listener al botón de la cámara.
+        buttonCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectItem("Camera");
+            }
+        });
+        //Iniciamos la pantalla de estadísticas.
         drawerTitle = getResources().getString(R.string.stadistic);
         if (savedInstanceState == null) {
             selectItem(drawerTitle);
         }
     }
-
-    private void setToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
-
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(
-                new NavigationView.OnNavigationItemSelectedListener() {
-
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // Marcar item presionado
-                        menuItem.setChecked(true);
-                        // Crear nuevo fragmento
-                        String title = menuItem.getTitle().toString();
-                        selectItem(title);
-                        return true;
-                    }
-                }
-        );
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -96,32 +76,18 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         // Enviar título como arguemento del fragmento
         Bundle args = new Bundle();
         args.putString(PlaceholderFragment.ARG_SECTION_TITLE, title);
-
         if(title.equals("Stadistic")){
             Fragment fragment = StadisticFragment.newInstance();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.replace(R.id.main_content,fragment).commit();
             drawerLayout.closeDrawers(); // Cerrar drawer
-            setTitle(title);
 
         }
         else {
             if (title.equals("Camera")) {
                 startActivity(new Intent(this, CameraActivity.class));
                 finish();
-            } else {
-                Fragment fragment = PlaceholderFragment.newInstance(title);
-                fragment.setArguments(args);
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_content, fragment)
-                        .commit();
-
-                drawerLayout.closeDrawers(); // Cerrar drawer
-
-                setTitle(title); // Setear título actual
             }
         }
     }
