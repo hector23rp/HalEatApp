@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements DayStadisticFragment.OnFragmentInteractionListener, WeekStadisticFragment.OnFragmentInteractionListener{
+
     /**
      * Instancia del drawer
      */
@@ -26,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
      * Titulo inicial del drawer
      */
     private String drawerTitle;
-
     private TextView titleView; //Titulo de la pantalla
     private ImageButton buttonCamera;    //Botón que nos lleva a la actividad de la cámara
 
