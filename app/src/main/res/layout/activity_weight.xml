@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_complex"
+    android:id="@+id/activity_height"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_screen"
-    tools:context="com.haleat.haleat.ComplexActivity">
+    android:weightSum="100"
+    tools:context="com.haleat.haleat.WeightActivity">
+
+    <TextView
+        android:id="@+id/weightTitle"
+        style="@style/TextTitle"
+        android:layout_marginTop="30dp"
+        android:text="@string/weightTitle"/>
 
     <Button
-        android:id="@+id/buttonGordo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Gordo"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="24dp" />
+        android:id="@+id/arrowWeightUp"
+        style="@style/ButtonArrow"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="150dp"
+        android:text="Up"/>
+
+    <TextView
+        android:id="@+id/weightNumber"
+        style="@style/BirthDayContent"
+        android:text="85"/>
 
     <Button
-        android:id="@+id/buttonDelgado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delgado"
-        android:layout_marginEnd="12dp"
-        android:layout_alignBaseline="@+id/buttonGordo"
-        android:layout_alignBottom="@+id/buttonGordo"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:id="@+id/buttonDeportista"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deportista"
-        android:layout_alignBaseline="@+id/buttonDelgado"
-        android:layout_alignBottom="@+id/buttonDelgado"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/arrowWeightDown"
+        style="@style/ButtonArrow"
+        android:layout_marginLeft="150dp"
+        android:layout_marginTop="320dp"
+        android:text="Down"/>
 
     <LinearLayout
         android:id="@+id/layoutDots"
@@ -59,6 +57,16 @@
         android:layout_alignParentLeft="true"
         android:background="@null"
         android:text="@string/back"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/nextWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:text="@string/next"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

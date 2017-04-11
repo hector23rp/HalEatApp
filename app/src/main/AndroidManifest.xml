@@ -46,7 +46,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ComplexActivity"></activity>
+        <activity android:name=".ComplexActivity" />
+        <activity android:name=".WeightActivity" />
+        <activity android:name=".BirthDateActivity" />
+        <activity android:name=".NameActivity"></activity>
     </application>
 
 </manifest>

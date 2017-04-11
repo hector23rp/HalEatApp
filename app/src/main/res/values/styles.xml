@@ -27,7 +27,32 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="TextTitle">
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">20</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 
+    <style name="ButtonArrow">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_weight">15</item>
+    </style>
+
+    <style name="BirthDayContent">
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_weight">20</item>
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_marginLeft">70dp</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textSize">40dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">220dp</item>
     </style>
 
 </resources>
