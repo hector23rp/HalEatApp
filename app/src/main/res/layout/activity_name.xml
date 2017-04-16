@@ -11,7 +11,17 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:inputType="textEmailAddress"
+        android:background="@color/white"
+        android:ems="10"
+        android:id="@+id/editTextEmailRegister"
+        android:hint="Email" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
         android:inputType="textPersonName"
+        android:layout_below="@+id/editTextEmailRegister"
         android:background="@color/white"
         android:ems="10"
         android:id="@+id/editTextUsuarioRegister"
@@ -36,6 +46,20 @@
         android:ems="10"
         android:id="@+id/editTextConfirmPassword"
         android:hint="Confirmar Contraseña" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/editTextConfirmPassword"
+        android:text="Sin Registrar" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/resultText"
+        android:text="Registrar"/>
 
     <LinearLayout
         android:id="@+id/layoutDots"
@@ -73,5 +97,7 @@
         android:background="@null"
         android:text="@string/finish"
         android:textColor="@android:color/white" />
+
+
 
 </RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -25,6 +27,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -34,6 +37,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -317,6 +321,7 @@ public class CameraActivity extends AppCompatActivity {
                     try {
                         output = new FileOutputStream(file);
                         output.write(bytes);
+                        compressImage();
                     } finally {
                         if (null != output) {
                             output.close();
@@ -348,6 +353,50 @@ public class CameraActivity extends AppCompatActivity {
                 }
             }, mBackgroundHandler);
         } catch (CameraAccessException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void compressImage(){
+        Bitmap bitmap;
+        bitmap = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/foord.jpg");
+        if(bitmap == null) {
+            return;
+        }
+        File f = new File(Environment.getExternalStorageDirectory() + "/compresst.jpg");
+        if(f.exists()){
+            f.delete();
+        }
+
+        int MAX_IMAGE_SIZE = 1000 * 1024;
+        int streamLength = MAX_IMAGE_SIZE;
+        int compressQuality = 105;
+        ByteArrayOutputStream bmpStream = new ByteArrayOutputStream();
+        while (streamLength >= MAX_IMAGE_SIZE && compressQuality > 5) {
+            try {
+                bmpStream.flush();//to avoid out of memory error
+                bmpStream.reset();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            compressQuality -= 5;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, compressQuality, bmpStream);
+            byte[] bmpPicByteArray = bmpStream.toByteArray();
+            streamLength = bmpPicByteArray.length;
+            if(BuildConfig.DEBUG) {
+                Log.d("test upload", "Quality: " + compressQuality);
+                Log.d("test upload", "Size: " + streamLength);
+            }
+        }
+
+        FileOutputStream fo;
+
+        try {
+            fo = new FileOutputStream(f);
+            fo.write(bmpStream.toByteArray());
+            fo.flush();
+            fo.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

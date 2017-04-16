@@ -62,7 +62,7 @@ public class IntroActivity extends AppCompatActivity {
     }
 
     private void launchCameraActivity(){
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, CameraActivity.class));
         finish();
     }
 
