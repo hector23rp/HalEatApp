@@ -110,10 +110,10 @@ public class StadisticFragment extends Fragment{
         mapStadisticDay.put("kilocalorias",45);
         mapStadisticDay.put("grasas",66);
         mapStadisticDay.put("hidratos",99);
-        mapStadisticWeek.put("proteinas",2333);
-        mapStadisticWeek.put("kilocalorias",5345);
-        mapStadisticWeek.put("grasas",6666);
-        mapStadisticWeek.put("hidratos",7766);
+        mapStadisticWeek.put("proteinas",63);
+        mapStadisticWeek.put("kilocalorias",15);
+        mapStadisticWeek.put("grasas",76);
+        mapStadisticWeek.put("hidratos",26);
     }
 
     /**

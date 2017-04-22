@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
     private String drawerTitle;
     private TextView titleView; //Titulo de la pantalla
     private ImageButton buttonCamera;    //Botón que nos lleva a la actividad de la cámara
+    private Button buttonLogOut;    //Botón para cerrar sesión.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +40,19 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         //Definimos los componentes de la pantalla
         titleView = (TextView) findViewById(R.id.title);
         buttonCamera = (ImageButton) findViewById(R.id.buttonCamera);
+        buttonLogOut = (Button) findViewById(R.id.logOutButton);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        //Añadimos el listener al botón de la cámara.
+        //Añadimos el listener aa los botones.
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 selectItem("Camera");
+            }
+        });
+        buttonLogOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectItem("LogOut");
             }
         });
         //Iniciamos la pantalla de estadísticas.
@@ -76,19 +85,24 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         // Enviar título como arguemento del fragmento
         Bundle args = new Bundle();
         args.putString(PlaceholderFragment.ARG_SECTION_TITLE, title);
-        if(title.equals("Stadistic")){
-            Fragment fragment = StadisticFragment.newInstance();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.replace(R.id.main_content,fragment).commit();
-            drawerLayout.closeDrawers(); // Cerrar drawer
-
-        }
-        else {
-            if (title.equals("Camera")) {
+        switch (title){
+            case "Stadistic":
+                Fragment fragment = StadisticFragment.newInstance();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+                transaction.replace(R.id.main_content,fragment).commit();
+                drawerLayout.closeDrawers(); // Cerrar drawer
+                break;
+            case "Camera":
                 startActivity(new Intent(this, CameraActivity.class));
                 finish();
-            }
+                break;
+            case "LogOut":
+                TokenSaver.setRemember(this,0);
+                TokenSaver.setToken(this,"");
+                startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
         }
     }
 

@@ -1,5 +1,6 @@
 package com.haleat.haleat;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -122,18 +123,22 @@ public class NameActivity extends AppCompatActivity {
      * Clase encargada de realizar la comunicación con el servidor.
      */
     public class PostClass extends AsyncTask<String, Void, String> {
+        ProgressDialog dialog;
         private final Context context;
         public PostClass(Context c){
                 this.context = c;
         }
         protected void onPreExecute(){
+            dialog= new ProgressDialog(context);
+            dialog.setMessage("Cargando...");
+            dialog.show();
         }
 
         protected String doInBackground(String... params) {
             String result = "";
             URL url = null;
             try {
-                url = new URL("http://www.haleat.com/api/signup");
+                url = new URL("http://haleat.com/api/signup");
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
@@ -146,7 +151,7 @@ public class NameActivity extends AppCompatActivity {
                 Log.e("params",postDataParams.toString());
                 //Realizamos la conexión con el servidor.
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(15000);
+                urlConnection.setConnectTimeout(95000);
                 urlConnection.setRequestMethod("POST");
                 urlConnection.setDoInput(true);
                 urlConnection.setDoOutput(true);
@@ -170,19 +175,10 @@ public class NameActivity extends AppCompatActivity {
                     in.close();
                     setToken(sb.toString());
                     result = "Registrado";
-
-
-                }
+            }
                 else {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-                    while((line = in.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-                    in.close();
-                    result = "Error de Registro";
+                    Log.e("Register","HTTP Response Code: " + responseCode);
+                    result = "No Registrado "+ responseCode;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -198,6 +194,7 @@ public class NameActivity extends AppCompatActivity {
             }
             TextView textResult = (TextView) findViewById(R.id.resultText);
             textResult.setText(result);
+            dialog.dismiss();
         }
 
         /**
@@ -209,26 +206,24 @@ public class NameActivity extends AppCompatActivity {
             String[] text1 = text.split("\"");
             TokenSaver.setToken(context,text1[3]);
         }
-    }
 
-
-    public String getPostDataString(JSONObject params) throws Exception {
-        StringBuilder result = new StringBuilder();
-        boolean first = true;
-        Iterator<String> itr = params.keys();
-        while(itr.hasNext()){
-            String key= itr.next();
-            Object value = params.get(key);
-            if (first)
-                first = false;
-            else
-                result.append("&");
-            result.append(URLEncoder.encode(key, "UTF-8"));
-            result.append("=");
-            result.append(URLEncoder.encode(value.toString(), "UTF-8"));
-
+        public String getPostDataString(JSONObject params) throws Exception {
+            StringBuilder result = new StringBuilder();
+            boolean first = true;
+            Iterator<String> itr = params.keys();
+            while(itr.hasNext()){
+                String key= itr.next();
+                Object value = params.get(key);
+                if (first)
+                    first = false;
+                else
+                    result.append("&");
+                result.append(URLEncoder.encode(key, "UTF-8"));
+                result.append("=");
+                result.append(URLEncoder.encode(value.toString(), "UTF-8"));
+            }
+            return result.toString();
         }
-        return result.toString();
     }
 
     /**

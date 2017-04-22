@@ -76,10 +76,10 @@ public class WeekStadisticFragment extends Fragment {
         rectGrasas = (RectView) view.findViewById(R.id.rect_grasas_week);
         rectHidratos = (RectView) view.findViewById(R.id.rect_hidratos_week);
         //Declaramos los textView
-        textProteinas = (TextView) view.findViewById(R.id.text_proteinas);
-        textCalorias = (TextView) view.findViewById(R.id.text_calorias);
-        textGrasas = (TextView) view.findViewById(R.id.text_grasas);
-        textHidratos = (TextView) view.findViewById(R.id.text_hidratos);
+        textProteinas = (TextView) view.findViewById(R.id.text_proteinas_week);
+        textCalorias = (TextView) view.findViewById(R.id.text_calorias_week);
+        textGrasas = (TextView) view.findViewById(R.id.text_grasas_week);
+        textHidratos = (TextView) view.findViewById(R.id.text_hidratos_week);
         //Agregamos el ancho de cada cuadrado a partir de los valores de cada componente.
         setParamsWidth();
         return view;

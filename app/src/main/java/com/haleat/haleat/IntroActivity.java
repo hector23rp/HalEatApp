@@ -40,7 +40,7 @@ public class IntroActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchCameraActivity();
+                launchActivity();
             }
         });
     }
@@ -61,19 +61,39 @@ public class IntroActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Inicia una determinada actividad dependiendo de si se ha inicado sesión anteriormente.
+     */
+    private void launchActivity(){
+        if(TokenSaver.checkRemember(this)){
+            launchCameraActivity();
+        }
+        else{
+            launchLoginActivity();
+        }
+    }
+
+    /**
+     * Inicia la actividad de la cámara.
+     */
     private void launchCameraActivity(){
         startActivity(new Intent(this, CameraActivity.class));
         finish();
     }
 
-    public static class IntroFragment extends Fragment {
+    /**
+     * Inicia la actividad de Login.
+     */
+    private void launchLoginActivity(){
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
 
+    public static class IntroFragment extends Fragment {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            ViewGroup rootView = (ViewGroup) inflater.inflate(
-                    R.layout.intro_slide1, container, false);
-
+            ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.intro_slide1, container, false);
             return rootView;
         }
     }
