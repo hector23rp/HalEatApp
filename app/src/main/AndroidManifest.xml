@@ -51,7 +51,9 @@
         <activity android:name=".WeightActivity" />
         <activity android:name=".BirthDateActivity" />
         <activity android:name=".NameActivity" />
-        <activity android:name=".CameraResultUserActivity"></activity>
+        <activity android:name=".CameraResultUserActivity" />
+        <activity android:name=".GalleryActivity" />
+        <activity android:name=".ImageActivity"></activity>
     </application>
 
 </manifest>

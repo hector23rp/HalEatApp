@@ -50,7 +50,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -76,6 +75,7 @@ public class CameraActivity extends AppCompatActivity {
     private Handler mBackgroundHandler;
     private File actualImage;   //Fichero donde se guarda la imagen que captura la cámara.
     private File compresedImage;    //Fichero donde se guarda la imagen comprimida.
+    private ProgressDialog dialog;
 
     private static String KEY_RESULT = "KEY_RESULT";    //Clave de el parámetro que indica si comes bien o no.
     private static String KEY_NAME = "KEY_NAME";    //Clave de el parámetro que indica el nombre del alimento.
@@ -170,7 +170,8 @@ public class CameraActivity extends AppCompatActivity {
      */
     private void launchMainActivity() {
         closeCamera();
-        startActivity(new Intent(this, MainActivity.class));
+        //startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, GalleryActivity.class));
         finish();
     }
 
@@ -430,12 +431,8 @@ public class CameraActivity extends AppCompatActivity {
      * Clase encargada de realizar la comunicación con el servidor.
      */
     public class PostClass extends AsyncTask<String, Void, String> {
-        ProgressDialog dialog;
+
         private final Context context;
-        private OutputStream outputStream;
-        private PrintWriter writer;
-        private static final String LINE_FEED = "\r\n";
-        private String boundary = "WebKitFormBoundary7MA4YWxkTrZu0gW";
 
         public PostClass(Context c) {
             this.context = c;
@@ -460,6 +457,7 @@ public class CameraActivity extends AppCompatActivity {
                     .setCallback(new FutureCallback<Response<String>>() {
                         @Override
                         public void onCompleted(Exception e, Response<String> result) {
+                            dialog.dismiss();
                             try {
                                 if(result.getHeaders().code() == 200) {
                                     JSONObject jobj = new JSONObject(result.getResult());
@@ -473,8 +471,7 @@ public class CameraActivity extends AppCompatActivity {
             return result;
         }
 
-        protected void onPostExecute(String result) {
-            dialog.dismiss();
+        protected void onPostExecute(String result){
         }
 
     }
