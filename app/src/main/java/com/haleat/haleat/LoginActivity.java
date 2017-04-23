@@ -151,6 +151,12 @@ public class LoginActivity extends AppCompatActivity {
                     result = "Logueado";
                 }
                 else {
+                    if(responseCode == 403){
+                        new AlertDialog.Builder(context)
+                                .setTitle("Contraseña Incorrecta")
+                                .setMessage("Contraseña introducida incorrecta")
+                                .show();
+                    }
                     Log.e("Login","HTTP Response Code: " + responseCode);
                     result = "No Logueado "+ responseCode;
                 }

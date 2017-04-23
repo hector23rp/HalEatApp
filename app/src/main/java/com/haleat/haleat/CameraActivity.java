@@ -27,7 +27,6 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
@@ -39,26 +38,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.util.concurrent.Future;
 
 import id.zelory.compressor.Compressor;
 
@@ -80,12 +77,13 @@ public class CameraActivity extends AppCompatActivity {
     private File actualImage;   //Fichero donde se guarda la imagen que captura la cámara.
     private File compresedImage;    //Fichero donde se guarda la imagen comprimida.
 
-    private static String KEY_RESULT = "KEY_RESULT";    //Nos permite coger de la anterior actividad el parámetro que indica si comes bien o no.
-    private static String KEY_NAME = "KEY_NAME";    //Nos permite coger de la anterior actividad el parámetro que indica el nombre del alimento.
-    private static String KEY_PROTEINAS = "KEY_PROTEINAS";  //Nos permite coger de la anterior actividad el parámetro proteinas.
-    private static String KEY_CALORIAS = "KEY_CALORIAS";  //Nos permite coger de la anterior actividad el parámetro calorias.
-    private static String KEY_HIDRATOS = "KEY_HIDRATOS";  //Nos permite coger de la anterior actividad el parámetro hidratos.
-    private static String KEY_GRASAS = "KEY_GRASAS";  //Nos permite coger de la anterior actividad el parámetro grasas.
+    private static String KEY_RESULT = "KEY_RESULT";    //Clave de el parámetro que indica si comes bien o no.
+    private static String KEY_NAME = "KEY_NAME";    //Clave de el parámetro que indica el nombre del alimento.
+    private static String KEY_PROTEINAS = "KEY_PROTEINAS";  //Clave de el parámetro proteinas.
+    private static String KEY_CALORIAS = "KEY_CALORIAS";  //Clave de el parámetro calorias.
+    private static String KEY_HIDRATOS = "KEY_HIDRATOS";  //Clave de el parámetro hidratos.
+    private static String KEY_GRASAS = "KEY_GRASAS";  //Clave de el parámetro grasas.
+    private static String KEY_AZUCAR = "KEY_AZUCAR";  //Clave de el parámetro azucar.
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -171,6 +169,7 @@ public class CameraActivity extends AppCompatActivity {
     * Llama a la actividad MainActivity. Esta función se debe llamra cuando se pulsa el botón menuButton.
      */
     private void launchMainActivity() {
+        closeCamera();
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
@@ -448,223 +447,36 @@ public class CameraActivity extends AppCompatActivity {
             dialog.show();
         }
 
-        /*protected String doInBackground(String... params) {
+        protected String doInBackground(String... params){
             String result = "";
-            URL url = null;
-            try {
-                url = new URL("http://haleat.com/api/newfood");
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            try {
-                //Realizamos la conexión con el servidor.
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setRequestMethod("POST");
-                //urlConnection.setRequestProperty("Host","haleat.com");
-                urlConnection.setRequestProperty("authorization",TokenSaver.getToken(context));
-                urlConnection.setRequestProperty("Cache-Control", "no-cache");
-                //urlConnection.setRequestProperty("Content-Type","multipart/form-data; boundary=----" + boundary);
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                //Enviamos la información al servidor.
-                outputStream = urlConnection.getOutputStream();
-                writer = new PrintWriter(new OutputStreamWriter(outputStream),true);
-                File uploadFile = new File(params[0]);
-                String fieldName = "image";
-                String fileName = uploadFile.getName();
-                writer.append("--" + boundary).append(LINE_FEED);
-                writer.append(
-                        "Content-Disposition: form-data; name=\"" + fieldName
-                                + "\"; filename=\"" + fileName + "\"")
-                        .append(LINE_FEED);
-                writer.append(
-                        "Content-Type: "
-                                + URLConnection.guessContentTypeFromName(fileName))
-                        .append(LINE_FEED);
-                writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
-                writer.append(LINE_FEED);
-                writer.flush();
+            File f = new File(params[0]);
 
-                FileInputStream inputStream = new FileInputStream(uploadFile);
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);
-                }
-                outputStream.flush();
-                inputStream.close();
-                writer.append(LINE_FEED);
-                writer.flush();
-                //addFilePart("image",new File(params[0]));
-                writer.append(LINE_FEED).flush();
-                writer.append("--" + boundary + "--").append(LINE_FEED);
-                writer.close();
-                //Comprobamos si se ha recibido algo.
-                int responseCode = urlConnection.getResponseCode();
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-                    while((line = in.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-                    in.close();
-                    result = "Peticion Correcta";
-                }
-                else { //Se produce algún error al realizar la petición.
-                    Log.e("UploadImageError","HTTP Response Code: " + responseCode);
-                    result = "Error en peticion "+responseCode;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            Future uploading = Ion.with(CameraActivity.this)
+                    .load("http://haleat.com/api/newfood")
+                    .setHeader("authorization",TokenSaver.getToken(context))
+                    .setMultipartFile("image", f)
+                    .asString()
+                    .withResponse()
+                    .setCallback(new FutureCallback<Response<String>>() {
+                        @Override
+                        public void onCompleted(Exception e, Response<String> result) {
+                            try {
+                                if(result.getHeaders().code() == 200) {
+                                    JSONObject jobj = new JSONObject(result.getResult());
+                                    getMessage(jobj);
+                                }
+                            } catch (JSONException e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    });
             return result;
-        }*/
-
-        protected String doInBackground(String... params) {
-            HttpURLConnection connection = null;
-            DataOutputStream outputStream = null;
-            InputStream inputStream = null;
-
-            String twoHyphens = "--";
-            String boundary =  "*****"+Long.toString(System.currentTimeMillis())+"*****";
-            String lineEnd = "\r\n";
-
-            String result = "";
-
-            int bytesRead, bytesAvailable, bufferSize;
-            byte[] buffer;
-            int maxBufferSize = 1*1024*1024;
-
-            String[] q = params[0].split("/");
-            int idx = q.length - 1;
-
-            try {
-                File file = new File(params[0]);
-                FileInputStream fileInputStream = new FileInputStream(file);
-
-                URL url = new URL("http://haleat.com/api/newfood");
-                connection = (HttpURLConnection) url.openConnection();
-
-                connection.setDoInput(true);
-                connection.setDoOutput(true);
-                connection.setUseCaches(false);
-
-                connection.setRequestProperty("Content-Type", "multipart/form-data; boundary="+boundary);
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Connection", "Keep-Alive");
-                connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
-                connection.setRequestProperty("authorization",TokenSaver.getToken(context));
-
-
-                outputStream = new DataOutputStream(connection.getOutputStream());
-                outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-                outputStream.writeBytes("Content-Disposition: form-data; name=\"" + file.getName() + "\"; filename=\"" + q[idx] +"\"" + lineEnd);
-                outputStream.writeBytes("Content-Type: image/jpeg" + lineEnd);
-                outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
-                outputStream.writeBytes(lineEnd);
-
-                bytesAvailable = fileInputStream.available();
-                bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                buffer = new byte[bufferSize];
-
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                while(bytesRead > 0) {
-                    outputStream.write(buffer, 0, bufferSize);
-                    bytesAvailable = fileInputStream.available();
-                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                    bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-                }
-
-                outputStream.writeBytes(lineEnd);
-
-                outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-                int responseCode = connection.getResponseCode();
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    inputStream = connection.getInputStream();
-                    result = this.convertStreamToString(inputStream);
-                    inputStream.close();
-                }
-                else{
-                    result = "HTTP Error. Code: "+responseCode;
-                }
-                fileInputStream.close();
-                outputStream.flush();
-                outputStream.close();
-
-                return result;
-            } catch(Exception e) {
-                Log.e("MultipartRequest","Multipart Form Upload Error");
-                e.printStackTrace();
-                return "error";
-            }
-        }
-
-        private String convertStreamToString(InputStream is) {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            StringBuilder sb = new StringBuilder();
-
-            String line = null;
-            try {
-                while ((line = reader.readLine()) != null) {
-                    sb.append(line);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            return sb.toString();
         }
 
         protected void onPostExecute(String result) {
             dialog.dismiss();
-            new AlertDialog.Builder(context)
-                    .setTitle("Resultado")
-                    .setMessage(result)
-                    .show();
-            //Comprobamos si ha habido algún error al realizar la petición.
-            /*if(result.equals("Fallo")){
-                launchResultUser();
-            }
-            else{   //Si no se ha producido ningún error en la petición, cogemos el mensaje que nos ha enviado el servidor.
-                getMessage(result);
-            }*/
         }
 
-        public void addFilePart(String fieldName, File uploadFile)
-                throws IOException {
-            String fileName = uploadFile.getName();
-            writer.append("--" + boundary).append(LINE_FEED);
-            writer.append(
-                    "Content-Disposition: form-data; name=\"" + fieldName
-                            + "\"; filename=\"" + fileName + "\"")
-                    .append(LINE_FEED);
-            writer.append(
-                    "Content-Type: "
-                            + URLConnection.guessContentTypeFromName(fileName))
-                    .append(LINE_FEED);
-            writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
-            writer.append(LINE_FEED);
-            writer.flush();
-
-            FileInputStream inputStream = new FileInputStream(uploadFile);
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            outputStream.flush();
-            inputStream.close();
-            writer.append(LINE_FEED);
-            writer.flush();
-        }
     }
 
     /**
@@ -677,151 +489,58 @@ public class CameraActivity extends AppCompatActivity {
     /**
      * Realiza una acción dependiendo de lo que el servidor ha devuelto.
      */
-    public void getMessage(String message){
-        boolean result = true;
-        String name = "Manzana";
-        String proteinas = "44";
-        String calorias = "33";
-        String hidratos = "22";
-        String grasas = "11";
-        Intent intent = new Intent(getBaseContext(), CameraResult.class);
-        intent.putExtra("KEY_RESULT", true);
-        intent.putExtra("KEY_NAME", name);
-        intent.putExtra("KEY_PROTEINAS", proteinas);
-        intent.putExtra("KEY_CALORIAS", calorias);
-        intent.putExtra("KEY_HIDRATOS", hidratos);
-        intent.putExtra("KEY_GRASAS", grasas);
+    public void getMessage(JSONObject jobj){
+            boolean result = true;
+            if(jobj.length()<2){    //Si solo se recibe el parámetro mensaje, significa que el token ha expirado.
+                launchLoginActivity();
+            }
+            else{
+                String name = null;
+                String proteinas = null;
+                String calorias = null;
+                String hidratos = null;
+                String grasas = null;
+                String azucar = null;
+                JSONArray arrayJson = new JSONArray();
+                try {
+                    arrayJson = jobj.getJSONArray("nameFood");
+                    proteinas = jobj.getString("proteinas");
+                    calorias = jobj.getString("kcal");
+                    hidratos = jobj.getString("hidratosC");
+                    grasas = jobj.getString("grasas");
+                    calorias = jobj.getString("kcal");
+                    azucar = jobj.getString("azucar");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                JSONObject json = null;
+                try {
+                    json = arrayJson.getJSONObject(0).getJSONObject("pred");
+                    name = json.getString("nombre");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                Intent intent = new Intent(getBaseContext(), CameraResult.class);
+                intent.putExtra(KEY_RESULT, true);
+                intent.putExtra(KEY_NAME, name);
+                intent.putExtra(KEY_PROTEINAS, proteinas);
+                intent.putExtra(KEY_CALORIAS, calorias);
+                intent.putExtra(KEY_HIDRATOS, hidratos);
+                intent.putExtra(KEY_GRASAS, grasas);
+                intent.putExtra(KEY_AZUCAR, azucar);
+                closeCamera();
+                startActivity(intent);
+                finish();
+            }
+        }
+
+    /**
+     * Inicia la actividad Login.
+     */
+    public void launchLoginActivity(){
+        closeCamera();
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
-    }
-
-    public class MultipartUtility {
-        private final String boundary;
-        private static final String LINE_FEED = "\r\n";
-        private HttpURLConnection httpConn;
-        private String charset;
-        private OutputStream outputStream;
-        private PrintWriter writer;
-        private Context context;
-
-        /**
-         * This constructor initializes a new HTTP POST request with content type
-         * is set to multipart/form-data
-         * @param requestURL
-         * @param charset
-         * @throws IOException
-         */
-        public MultipartUtility(String requestURL, String charset, Context c)
-                throws IOException {
-            this.charset = charset;
-            this.context = c;
-            // creates a unique boundary based on time stamp
-            boundary = "===" + System.currentTimeMillis() + "===";
-
-            URL url = new URL(requestURL);
-            httpConn = (HttpURLConnection) url.openConnection();
-            httpConn.setUseCaches(false);
-            httpConn.setDoOutput(true); // indicates POST method
-            httpConn.setDoInput(true);
-            httpConn.setRequestProperty("authorization", TokenSaver.getToken(context));
-            httpConn.setRequestProperty("Cache-Control", "no-cache");
-            httpConn.setRequestProperty("Content-Type",
-                    "multipart/form-data; boundary=" + boundary);
-            outputStream = httpConn.getOutputStream();
-            writer = new PrintWriter(new OutputStreamWriter(outputStream, charset),
-                    true);
-        }
-
-        /**
-         * Adds a form field to the request
-         * @param name field name
-         * @param value field value
-         */
-        public void addFormField(String name, String value) {
-            writer.append("--" + boundary).append(LINE_FEED);
-            writer.append("Content-Disposition: form-data; name=\"" + name + "\"")
-                    .append(LINE_FEED);
-            writer.append("Content-Type: text/plain; charset=" + charset).append(
-                    LINE_FEED);
-            writer.append(LINE_FEED);
-            writer.append(value).append(LINE_FEED);
-            writer.flush();
-        }
-
-        /**
-         * Adds a upload file section to the request
-         * @param fieldName name attribute in <input type="file" name="..." />
-         * @param uploadFile a File to be uploaded
-         * @throws IOException
-         */
-        public void addFilePart(String fieldName, File uploadFile)
-                throws IOException {
-            String fileName = uploadFile.getName();
-            writer.append("--" + boundary).append(LINE_FEED);
-            writer.append(
-                    "Content-Disposition: form-data; name=\"" + fieldName
-                            + "\"; filename=\"" + fileName + "\"")
-                    .append(LINE_FEED);
-            writer.append(
-                    "Content-Type: "
-                            + URLConnection.guessContentTypeFromName(fileName))
-                    .append(LINE_FEED);
-            writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
-            writer.append(LINE_FEED);
-            writer.flush();
-
-            FileInputStream inputStream = new FileInputStream(uploadFile);
-            byte[] buffer = new byte[4096];
-            int bytesRead = -1;
-            while ((bytesRead = inputStream.read(buffer)) != -1) {
-                outputStream.write(buffer, 0, bytesRead);
-            }
-            outputStream.flush();
-            inputStream.close();
-
-            writer.append(LINE_FEED);
-            writer.flush();
-        }
-
-        /**
-         * Adds a header field to the request.
-         * @param name - name of the header field
-         * @param value - value of the header field
-         */
-        public void addHeaderField(String name, String value) {
-            writer.append(name + ": " + value).append(LINE_FEED);
-            writer.flush();
-        }
-
-        /**
-         * Completes the request and receives response from the server.
-         * @return a list of Strings as response in case the server returned
-         * status OK, otherwise an exception is thrown.
-         * @throws IOException
-         */
-        public List<String> finish() throws IOException {
-            List<String> response = new ArrayList<String>();
-
-            writer.append(LINE_FEED).flush();
-            writer.append("--" + boundary + "--").append(LINE_FEED);
-            writer.close();
-
-            // checks server's status code first
-            int status = httpConn.getResponseCode();
-            if (status == HttpURLConnection.HTTP_OK) {
-                BufferedReader reader = new BufferedReader(new InputStreamReader(
-                        httpConn.getInputStream()));
-                String line = null;
-                while ((line = reader.readLine()) != null) {
-                    response.add(line);
-                }
-                reader.close();
-                httpConn.disconnect();
-            } else {
-                throw new IOException("Server returned non-OK status: " + status);
-            }
-
-            return response;
-        }
     }
 }

@@ -25,6 +25,7 @@
     <string name="calories">calorías</string>
     <string name="proteins">proteínas</string>
     <string name="hidratos">hidratos</string>
+    <string name="azucar">azucar</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="title_activity_login">Sign in</string>

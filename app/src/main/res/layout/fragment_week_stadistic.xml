@@ -178,6 +178,48 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:id="@+id/layout_azucar_week">
+
+            <RelativeLayout
+                android:layout_width="280dp"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_azucar_week"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginLeft="120dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"
+                    android:textStyle="italic"/>
+
+                <com.haleat.haleat.RectView
+                    android:layout_width="120dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/rect_azucar_week"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/azucar"
+                android:gravity="center"
+                android:textSize="@dimen/font_component"
+                android:textStyle="italic"/>
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </FrameLayout>

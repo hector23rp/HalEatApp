@@ -24,21 +24,25 @@ public class DayStadisticFragment extends Fragment {
     private static final String ARG_KILO = "kilocalorias";
     private static final String ARG_GRASAS = "grasas";
     private static final String ARG_HIDRATOS = "hidratos";
+    private static final String ARG_AZUCAR = "azucar";
 
     private Integer proteinas;  //Proteinas del dia.
     private Integer kilocalorias;   //Kilocalorias del dia.
     private Integer grasas;     //Grasas del dia.
     private Integer hidratos;   //Hidratos del dia.
+    private Integer azucar;     //Azucar del día.
 
     private RectView rectProteinas;
     private RectView rectCalorias;
     private RectView rectGrasas;
     private RectView rectHidratos;
+    private RectView rectAzucar;
 
     private TextView textProteinas;
     private TextView textCalorias;
     private TextView textGrasas;
     private TextView textHidratos;
+    private TextView textAzucar;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,6 +66,7 @@ public class DayStadisticFragment extends Fragment {
             kilocalorias = getArguments().getInt(ARG_KILO);
             grasas = getArguments().getInt(ARG_GRASAS);
             hidratos = getArguments().getInt(ARG_HIDRATOS);
+            azucar = getArguments().getInt(ARG_AZUCAR);
         }
     }
 
@@ -75,11 +80,13 @@ public class DayStadisticFragment extends Fragment {
         rectCalorias = (RectView) view.findViewById(R.id.rect_calories_day);
         rectGrasas = (RectView) view.findViewById(R.id.rect_grasas_day);
         rectHidratos = (RectView) view.findViewById(R.id.rect_hidratos_day);
+        rectAzucar = (RectView) view.findViewById(R.id.rect_azucar_day);
         //Declaramos los textView
         textProteinas = (TextView) view.findViewById(R.id.text_proteinas);
         textCalorias = (TextView) view.findViewById(R.id.text_calorias);
         textGrasas = (TextView) view.findViewById(R.id.text_grasas);
         textHidratos = (TextView) view.findViewById(R.id.text_hidratos);
+        textAzucar = (TextView) view.findViewById(R.id.text_azucar);
         //Agregamos el ancho de cada cuadrado a partir de los valores de cada componente.
         setParamsWidth();
         return view;
@@ -90,7 +97,7 @@ public class DayStadisticFragment extends Fragment {
      */
     public void setParamsWidth(){
         ViewGroup.LayoutParams paramsCalorias = rectCalorias.getLayoutParams();
-        paramsCalorias.width = kilocalorias;
+        paramsCalorias.width = kilocalorias/50;
         textCalorias.setText(String.valueOf(kilocalorias));
         rectCalorias.setLayoutParams(paramsCalorias);
         ViewGroup.LayoutParams paramsProteinas = rectProteinas.getLayoutParams();
@@ -105,6 +112,10 @@ public class DayStadisticFragment extends Fragment {
         paramsHidratos.width = hidratos;
         textHidratos.setText(String.valueOf(hidratos));
         rectHidratos.setLayoutParams(paramsHidratos);
+        ViewGroup.LayoutParams paramsAzucar = rectAzucar.getLayoutParams();
+        paramsAzucar.width = azucar;
+        textAzucar.setText(String.valueOf(azucar));
+        rectAzucar.setLayoutParams(paramsAzucar);
     }
 
     public void onButtonPressed(Uri uri) {
