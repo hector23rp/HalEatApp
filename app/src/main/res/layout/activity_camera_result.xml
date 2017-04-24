@@ -8,143 +8,193 @@
     android:weightSum="1"
     tools:context="com.haleat.haleat.CameraResult">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.4"/>
-
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.1"
-        android:layout_gravity="center"
-        android:id="@+id/frase"/>
+        android:background="@color/bg_screen">
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_arrow_left_thick_white_36dp"
+            android:background="@null"
+            android:id="@+id/button_back"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="45dp"
+            android:src="@drawable/like"
+            android:id="@+id/imageResult"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageResult"
+            android:layout_marginTop="7dp"
+            android:layout_centerInParent="true"
+            android:text="Naranja"
+            android:textColor="@color/white"
+            android:textSize="35dp"
+            android:id="@+id/nameEat"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nameEat"
+            android:layout_marginTop="7dp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:id="@+id/frase"
+            android:text="Comida Saludable. Bien hecho!"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/frase"
+            android:layout_marginTop="7dp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:id="@+id/fraseSemana"
+            android:text="Vas bien con la dieta de la semana"/>
 
-    <LinearLayout
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_weight="0.1">
-
-        <Button
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Positivo"
-            android:id="@+id/button_positivo"/>
+            android:layout_marginTop="3dp"
+            android:layout_centerInParent="true"
+            android:text="Componentes"
+            android:textSize="20dp"
+            android:id="@+id/componentes"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/componentes"
+            android:background="@android:color/black" />
+    </RelativeLayout>
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Neutral"
-            android:id="@+id/button_neutral"/>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Negativo"
-            android:id="@+id/button_negativo"/>
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_weight="0.3">
+        android:layout_weight="0.8">
 
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:layout_weight="0.15">
+            android:layout_weight="0.10">
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="0.7">
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:weightSum="1">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Proteinas"/>
-                    <TextView
-                        android:layout_width="214dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/proteinasResult"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Calorias"/>
-                    <TextView
-                        android:layout_width="214dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/caloriasResult"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Grasas"/>
-                    <TextView
-                        android:layout_width="214dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/grasasResult"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hidratos"/>
-                    <TextView
-                        android:layout_width="214dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/hidratosResult"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Azucar"/>
-                    <TextView
-                        android:layout_width="214dp"
-                        android:layout_height="match_parent"
-                        android:id="@+id/azucarResult"/>
-                </LinearLayout>
-
-            </LinearLayout>
+                android:text="Proteinas"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/bg_screen"
+                android:id="@+id/titleProteinas"/>
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="3dp"
+                android:layout_toRightOf="@+id/titleProteinas"
+                android:id="@+id/proteinasResult"
+                android:textStyle="italic"
+                android:text="80.99999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/titleProteinas"
+                android:text="Calorias"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/bg_screen"
+                android:id="@+id/titleCalorias"/>
+            <TextView
+                android:layout_width="214dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="7dp"
+                android:layout_below="@+id/proteinasResult"
+                android:layout_toRightOf="@+id/titleCalorias"
+                android:id="@+id/caloriasResult"
+                android:textStyle="italic"
+                android:text="80.99999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/titleCalorias"
+                android:text="Grasas"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/bg_screen"
+                android:id="@+id/titleGrasas"/>
+            <TextView
+                android:layout_width="214dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="9dp"
+                android:layout_below="@+id/caloriasResult"
+                android:layout_toRightOf="@+id/titleGrasas"
+                android:id="@+id/grasasResult"
+                android:textStyle="italic"
+                android:text="80.99999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/titleGrasas"
+                android:text="Hidratos"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/bg_screen"
+                android:id="@+id/titleHidratos"/>
+            <TextView
+                android:layout_width="214dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="9dp"
+                android:layout_below="@+id/grasasResult"
+                android:layout_toRightOf="@+id/titleHidratos"
+                android:id="@+id/hidratosResult"
+                android:textStyle="italic"
+                android:text="80.99999"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/titleHidratos"
+                android:text="Azucar"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:textColor="@color/bg_screen"
+                android:id="@+id/titleAzucar"/>
+            <TextView
+                android:layout_width="214dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="11dp"
+                android:layout_below="@+id/hidratosResult"
+                android:layout_toRightOf="@+id/titleAzucar"
+                android:id="@+id/azucarResult"
+                android:textStyle="italic"
+                android:text="80.99999"/>
 
         </RelativeLayout>
 
@@ -155,13 +205,5 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.05"
-        android:layout_gravity="center"
-        android:text="Volver"
-        android:id="@+id/button_back"/>
 
 </LinearLayout>

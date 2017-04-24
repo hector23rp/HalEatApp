@@ -119,19 +119,32 @@ public class StadisticFragment extends Fragment{
         new PostClass(getActivity()).execute();
     }
 
-    public void initMaps(JSONObject jobj){
+    public void initMaps(JSONObject jobj) throws JSONException {
+        JSONObject jsonDay = jobj.getJSONObject("day");
+        JSONObject jsonWeek = jobj.getJSONObject("week");
         String proteinas = null;
         String calorias = null;
         String hidratos = null;
         String grasas = null;
         String azucar = null;
+        String proteinasWeek = null;
+        String caloriasWeek = null;
+        String hidratosWeek = null;
+        String grasasWeek = null;
+        String azucarWeek = null;
         try {
-            proteinas = jobj.getString("proteinas");
-            calorias = jobj.getString("kcal");
-            hidratos = jobj.getString("hidratosC");
-            grasas = jobj.getString("grasas");
-            calorias = jobj.getString("kcal");
-            azucar = jobj.getString("azucar");
+            proteinas = jsonDay.getString("proteinas");
+            calorias = jsonDay.getString("kcal");
+            hidratos = jsonDay.getString("hidratosC");
+            grasas = jsonDay.getString("grasas");
+            calorias = jsonDay.getString("kcal");
+            azucar = jsonDay.getString("azucar");
+            proteinasWeek = jsonWeek.getString("proteinas");
+            caloriasWeek = jsonWeek.getString("kcal");
+            hidratosWeek = jsonWeek.getString("hidratosC");
+            grasasWeek = jsonWeek.getString("grasas");
+            caloriasWeek = jsonWeek.getString("kcal");
+            azucarWeek = jsonWeek.getString("azucar");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -140,16 +153,21 @@ public class StadisticFragment extends Fragment{
         Double numberGrasas = Double.parseDouble(grasas);
         Double numberHidratos = Double.parseDouble(hidratos);
         Double numberAzucar = Double.parseDouble(azucar);
+        Double numberProteinasWeek = Double.parseDouble(proteinasWeek);
+        Double numberCaloriasWeek = Double.parseDouble(caloriasWeek);
+        Double numberGrasasWeek = Double.parseDouble(grasasWeek);
+        Double numberHidratosWeek = Double.parseDouble(hidratosWeek);
+        Double numberAzucarWeek = Double.parseDouble(azucarWeek);
         mapStadisticDay.put("proteinas",numberProteinas.intValue());
         mapStadisticDay.put("kilocalorias",numberCalorias.intValue());
         mapStadisticDay.put("grasas",numberGrasas.intValue());
         mapStadisticDay.put("hidratos",numberHidratos.intValue());
         mapStadisticDay.put("azucar",numberAzucar.intValue());
-        mapStadisticWeek.put("proteinas",63);
-        mapStadisticWeek.put("kilocalorias",15);
-        mapStadisticWeek.put("grasas",76);
-        mapStadisticWeek.put("hidratos",26);
-        mapStadisticWeek.put("azucar",86);
+        mapStadisticWeek.put("proteinas",numberProteinasWeek.intValue());
+        mapStadisticWeek.put("kilocalorias",numberCaloriasWeek.intValue());
+        mapStadisticWeek.put("grasas",numberGrasasWeek.intValue());
+        mapStadisticWeek.put("hidratos",numberHidratosWeek.intValue());
+        mapStadisticWeek.put("azucar",numberAzucarWeek.intValue());
     }
 
     /**
@@ -195,7 +213,7 @@ public class StadisticFragment extends Fragment{
             String result = "";
             //Conseguimos la fecha actual con formato YYYY/MM/MM.
             Date cDate = new Date();
-            String fDate = new SimpleDateFormat("yyyy/MM/dd").format(cDate);
+            String fDate = new SimpleDateFormat("yyyy-MM-dd").format(cDate);
             Ion.with(context)
                     .load("http://haleat.com/api/getStats")
                     .setHeader("authorization",TokenSaver.getToken(context))

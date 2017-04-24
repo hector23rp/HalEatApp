@@ -34,7 +34,6 @@ import android.util.SparseIntArray;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -64,7 +63,6 @@ public class CameraActivity extends AppCompatActivity {
     private ImageButton takePictureButton;  //Botón de la cámara para realizar la foto
     private ImageButton menuButton; //Botón para acceder al panel lateral de la pantalla.
     private DrawerLayout mDrawerLayout; //Layout principal
-    private ArrayAdapter<String> mAdapter;
     private String cameraId; //ID de la camara
     private Size imageDimension;    //Dimensiones que soporta la cámara.
     private static final int REQUEST_CAMERA_PERMISSION = 200;
@@ -74,10 +72,10 @@ public class CameraActivity extends AppCompatActivity {
     protected CameraCaptureSession cameraCaptureSessions; //Sesión de la camara
     private Handler mBackgroundHandler;
     private File actualImage;   //Fichero donde se guarda la imagen que captura la cámara.
-    private File compresedImage;    //Fichero donde se guarda la imagen comprimida.
     private ProgressDialog dialog;
 
     private static String KEY_RESULT = "KEY_RESULT";    //Clave de el parámetro que indica si comes bien o no.
+    private static String KEY_RESULT_WEEK = "KEY_RESULT_WEEK";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
     private static String KEY_NAME = "KEY_NAME";    //Clave de el parámetro que indica el nombre del alimento.
     private static String KEY_PROTEINAS = "KEY_PROTEINAS";  //Clave de el parámetro proteinas.
     private static String KEY_CALORIAS = "KEY_CALORIAS";  //Clave de el parámetro calorias.
@@ -170,8 +168,7 @@ public class CameraActivity extends AppCompatActivity {
      */
     private void launchMainActivity() {
         closeCamera();
-        //startActivity(new Intent(this, MainActivity.class));
-        startActivity(new Intent(this, GalleryActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 
@@ -370,7 +367,6 @@ public class CameraActivity extends AppCompatActivity {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(CameraActivity.this, "Saved:" + actualImage, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };
@@ -406,8 +402,7 @@ public class CameraActivity extends AppCompatActivity {
                 .setDestinationDirectoryPath(Environment.getExternalStorageDirectory() + "/Haleat")
                 .build()
                 .compressToFile(actualImage);
-        Toast.makeText(this, "Compressed image save in " + compressedImage.getPath(), Toast.LENGTH_LONG).show();
-        //deleteImage(Environment.getExternalStorageDirectory() + "/food.jpg");
+        deleteImage(Environment.getExternalStorageDirectory() + "/food.jpg");
     }
 
     /**
@@ -468,10 +463,11 @@ public class CameraActivity extends AppCompatActivity {
                             }
                         }
                     });
-            return result;
+            return params[0];
         }
 
         protected void onPostExecute(String result){
+            //deleteImage(result);
         }
 
     }
@@ -498,9 +494,15 @@ public class CameraActivity extends AppCompatActivity {
                 String hidratos = null;
                 String grasas = null;
                 String azucar = null;
+                String checkDay = null;
+                String checkWeek = null;
                 JSONArray arrayJson = new JSONArray();
+                JSONObject jsonCheck = new JSONObject();
                 try {
                     arrayJson = jobj.getJSONArray("nameFood");
+                    jsonCheck = jobj.getJSONObject("diet");
+                    checkDay = jsonCheck.getString("day");
+                    checkWeek = jsonCheck.getString("week");
                     proteinas = jobj.getString("proteinas");
                     calorias = jobj.getString("kcal");
                     hidratos = jobj.getString("hidratosC");
@@ -518,7 +520,18 @@ public class CameraActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(getBaseContext(), CameraResult.class);
-                intent.putExtra(KEY_RESULT, true);
+                if(checkDay.equals("bad")){
+                    intent.putExtra(KEY_RESULT, false);
+                }
+                else{
+                    intent.putExtra(KEY_RESULT, true);
+                }
+                if(checkWeek.equals("bad")){
+                    intent.putExtra(KEY_RESULT_WEEK, false);
+                }
+                else{
+                    intent.putExtra(KEY_RESULT_WEEK, true);
+                }
                 intent.putExtra(KEY_NAME, name);
                 intent.putExtra(KEY_PROTEINAS, proteinas);
                 intent.putExtra(KEY_CALORIAS, calorias);

@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
      */
     private String drawerTitle;
     private TextView titleView; //Titulo de la pantalla
-    private ImageButton buttonCamera;    //Botón que nos lleva a la actividad de la cámara
+    private ImageButton buttonCamera, buttonGallery;    //Botón que nos lleva a la actividad de la cámara
     private Button buttonLogOut;    //Botón para cerrar sesión.
 
     @Override
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         //Definimos los componentes de la pantalla
         titleView = (TextView) findViewById(R.id.title);
         buttonCamera = (ImageButton) findViewById(R.id.buttonCamera);
+        buttonGallery = (ImageButton) findViewById(R.id.buttonGallery);
         buttonLogOut = (Button) findViewById(R.id.logOutButton);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //Añadimos el listener aa los botones.
@@ -53,6 +54,12 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
             @Override
             public void onClick(View v) {
                 selectItem("LogOut");
+            }
+        });
+        buttonGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectItem("Gallery");
             }
         });
         //Iniciamos la pantalla de estadísticas.
@@ -101,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
                 TokenSaver.setRemember(this,0);
                 TokenSaver.setToken(this,"");
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
+                break;
+            case "Gallery":
+                startActivity(new Intent(this, GalleryActivity.class));
                 finish();
                 break;
         }

@@ -32,7 +32,7 @@ public class GalleryActivity extends AppCompatActivity {
 
     private Button butonLogOut;
 
-    private ImageButton buttonCamera;
+    private ImageButton buttonCamera, buttonStadistic;
 
     private ArrayAdapter<String> adaptador;
 
@@ -46,48 +46,47 @@ public class GalleryActivity extends AppCompatActivity {
             dialog.dismiss();
             try {
                 if(result.getHeaders().code() == 200) {
-                    String[] message = result.getResult().split("\\[");
-                    String[] jsonArray = message[1].split("\\]");
-                    String[] jsonText = jsonArray[0].split("\\},");
-                    for(int i = 0;i<jsonText.length;i++){
-                        JSONObject json = null;
-                        if(i == jsonText.length-1){
-                            json = new JSONObject(jsonText[i]);
-                        }
-                        else{
-                            json = new JSONObject(jsonText[i]+"}");
-                        }
+                    if(result.getResult().length() > 2) {   //Si se ha devuelto alguna información de imagen.
+                        String[] message = result.getResult().split("\\[");
+                        String[] jsonArray = message[1].split("\\]");
+                        String[] jsonText = jsonArray[0].split("\\},");
+                        for (int i = 0; i < jsonText.length; i++) {
+                            JSONObject json = null;
+                            if (i == jsonText.length - 1) {
+                                json = new JSONObject(jsonText[i]);
+                            } else {
+                                json = new JSONObject(jsonText[i] + "}");
+                            }
 
-                        listItems.add(getMessage(json));
+                            listItems.add(getMessage(json));
+                        }
+                        adaptador = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listItems) {
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                // Get the Item from ListView
+                                View view = super.getView(position, convertView, parent);
+
+                                // Initialize a TextView for ListView each Item
+                                TextView tv = (TextView) view.findViewById(android.R.id.text1);
+
+                                // Set the text color of TextView (ListView Item)
+                                tv.setTextColor(Color.BLACK);
+
+                                // Generate ListView Item using TextView
+                                return view;
+                            }
+                        };
+                        list.setAdapter(adaptador);
+                        //Definimos los listener de la lista.
+                        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                                    long arg3) {
+                                String value = adapter.getItemAtPosition(position).toString();
+                                launchImageActivity(value);
+                            }
+                        });
                     }
-                    adaptador = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1,listItems){
-                        @Override
-                        public View getView(int position, View convertView, ViewGroup parent){
-                            // Get the Item from ListView
-                            View view = super.getView(position, convertView, parent);
-
-                            // Initialize a TextView for ListView each Item
-                            TextView tv = (TextView) view.findViewById(android.R.id.text1);
-
-                            // Set the text color of TextView (ListView Item)
-                            tv.setTextColor(Color.BLACK);
-
-                            // Generate ListView Item using TextView
-                            return view;
-                        }
-                    };
-                    list.setAdapter(adaptador);
-                    //Definimos los listener de la lista.
-                    list.setOnItemClickListener(new AdapterView.OnItemClickListener()
-                    {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapter, View v, int position,
-                                                long arg3)
-                        {
-                            String value = adapter.getItemAtPosition(position).toString();
-                            launchImageActivity(value);
-                        }
-                    });
                 }
             } catch (JSONException e1) {
                 e1.printStackTrace();
@@ -103,6 +102,7 @@ public class GalleryActivity extends AppCompatActivity {
         list =  (ListView) findViewById(R.id.list_gallery);
         buttonCamera = (ImageButton) findViewById(R.id.buttonCamera);
         butonLogOut = (Button) findViewById(R.id.logOutButton);
+        buttonStadistic = (ImageButton) findViewById(R.id.buttonStadistic);
         //Realizamos la petición al servidor para conseguir los nombres de las imagenes.
         requestToServer();
         //Definimos los listener de los botones.
@@ -116,6 +116,12 @@ public class GalleryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 launchLoginActivity();
+            }
+        });
+        buttonStadistic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchStadisticActivity();
             }
         });
     }
@@ -135,6 +141,14 @@ public class GalleryActivity extends AppCompatActivity {
         TokenSaver.setRemember(this,0);
         TokenSaver.setToken(this,"");
         startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    /**
+     * Inicia la actividad de Estadísticas.
+     */
+    public void launchStadisticActivity(){
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

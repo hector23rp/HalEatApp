@@ -97,7 +97,7 @@ public class WeekStadisticFragment extends Fragment {
      */
     public void setParamsWidth(){
         ViewGroup.LayoutParams paramsCalorias = rectCalorias.getLayoutParams();
-        paramsCalorias.width = kilocalorias;
+        paramsCalorias.width = kilocalorias/50;
         textCalorias.setText(String.valueOf(kilocalorias));
         rectCalorias.setLayoutParams(paramsCalorias);
         ViewGroup.LayoutParams paramsProteinas = rectProteinas.getLayoutParams();

@@ -24,18 +24,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/font_title_size"
-                android:layout_marginLeft="140dp"
+                android:layout_centerInParent="true"
                 android:text="Galeria"
                 android:id="@+id/title"/>
+
+            <ImageButton
+                android:id="@+id/buttonStadistic"
+                android:src="@drawable/ic_chart_bar_stacked_grey600_36dp"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_toLeftOf="@+id/buttonCamera"/>
 
             <ImageButton
                 android:id="@+id/buttonCamera"
                 android:src="@drawable/ic_camera"
                 android:background="@null"
-                android:layout_width="wrap_content"
+                android:layout_width="56dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:layout_marginLeft="300dp"/>
+                android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
 
