@@ -6,31 +6,52 @@
     android:layout_height="match_parent"
     android:background="@color/bg_screen"
     android:weightSum="100"
+    android:fitsSystemWindows="true"
     tools:context="com.haleat.haleat.WeightActivity">
 
-    <TextView
-        android:id="@+id/weightTitle"
-        style="@style/TextTitle"
-        android:layout_marginTop="30dp"
-        android:text="@string/weightTitle"/>
+    <ImageView
+        android:id="@+id/imageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:src="@drawable/haleatxx"/>
 
-    <Button
+    <TextView
+        android:id="@+id/edadTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="150dp"
+        android:layout_below="@+id/imageTitle"
+        android:text="Edad"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <ImageButton
         android:id="@+id/arrowWeightUp"
         style="@style/ButtonArrow"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="150dp"
+        android:src="@drawable/arrowUp"
+        android:background="@drawable/button_arrow"
+        android:layout_below="@+id/edadTitle"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="20dp"
         android:text="Up"/>
 
     <TextView
         android:id="@+id/weightNumber"
         style="@style/BirthDayContent"
+        android:layout_below="@+id/arrowWeightUp"
+        android:background="@drawable/layout_login"
         android:text="85"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/arrowWeightDown"
         style="@style/ButtonArrow"
-        android:layout_marginLeft="150dp"
-        android:layout_marginTop="320dp"
+        android:src="@drawable/arrowDown"
+        android:background="@drawable/button_arrow"
+        android:layout_below="@+id/weightNumber"
+        android:layout_marginLeft="155dp"
+        android:layout_marginTop="20dp"
         android:text="Down"/>
 
     <LinearLayout

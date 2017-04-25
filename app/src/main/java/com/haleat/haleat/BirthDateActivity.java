@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class BirthDateActivity extends AppCompatActivity {
 
     String sex,complex; //Variables que se coge de la anterior actividad.
 
-    Button buttonUp, buttonDown, buttonNext, backButton;
+    Button  buttonNext, backButton;
+
+    ImageButton buttonUp, buttonDown;
 
     TextView date;
 
@@ -25,8 +28,8 @@ public class BirthDateActivity extends AppCompatActivity {
         sex = getIntent().getStringExtra("sex");
         complex = getIntent().getStringExtra("complex");
         //Definimos los componentes de la pantalla.
-        buttonDown = (Button) findViewById(R.id.arrowDown);
-        buttonUp = (Button) findViewById(R.id.arrowUp);
+        buttonDown = (ImageButton) findViewById(R.id.arrowDown);
+        buttonUp = (ImageButton) findViewById(R.id.arrowUp);
         buttonNext = (Button) findViewById(R.id.next);
         backButton = (Button) findViewById(R.id.btn_back);
         date = (TextView) findViewById(R.id.dateNumber);
@@ -62,8 +65,10 @@ public class BirthDateActivity extends AppCompatActivity {
      * Resta 1 al año.
      */
     public void yearDown(){
-        year -= 1;
-        date.setText(String.valueOf(year));
+        if(year > 0) {
+            year -= 1;
+            date.setText(String.valueOf(year));
+        }
     }
 
     /**

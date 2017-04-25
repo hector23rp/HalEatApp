@@ -116,7 +116,7 @@ public class NameActivity extends AppCompatActivity {
      * Envía la información del usuario al servidor para registrarse.
      */
     public void sendToServer(){
-        new PostClass(this).execute(user.getText().toString(),password.getText().toString(),email.getText().toString());
+        new PostClass(this).execute(user.getText().toString(),password.getText().toString(),email.getText().toString(),sex,complex,year,weight);
     }
 
     /**
@@ -174,7 +174,7 @@ public class NameActivity extends AppCompatActivity {
                     }
                     in.close();
                     setToken(sb.toString());
-                    result = "Registrado";
+                    result = "¡Registrado!";
             }
                 else {
                     Log.e("Register","HTTP Response Code: " + responseCode);

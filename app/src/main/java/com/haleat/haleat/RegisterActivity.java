@@ -24,14 +24,14 @@ public class RegisterActivity extends AppCompatActivity {
         buttonMan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sexSelect = "Man";   //Sexo del usuario.
+                String sexSelect = "M";   //Sexo del usuario.
                 launchComplexActivity(sexSelect);
             }
         });
         buttonFemale.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String sexSelect = "Female";   //Sexo del usuario.
+                String sexSelect = "F";   //Sexo del usuario.
                 launchComplexActivity(sexSelect);
             }
         });

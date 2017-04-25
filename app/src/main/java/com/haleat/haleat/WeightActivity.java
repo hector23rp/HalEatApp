@@ -1,17 +1,20 @@
 package com.haleat.haleat;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class WeightActivity extends AppCompatActivity {
 
     String sex,complex, year; //Variables que se coge de la anterior actividad.
 
-    Button buttonUp, buttonDown, buttonNext, backButton;
+    Button  buttonNext, backButton;
+
+    ImageButton buttonUp, buttonDown;
 
     TextView weightText;
 
@@ -26,8 +29,8 @@ public class WeightActivity extends AppCompatActivity {
         complex = getIntent().getStringExtra("complex");
         year = getIntent().getStringExtra("year");
         //Definimos los componentes.
-        buttonDown = (Button) findViewById(R.id.arrowWeightDown);
-        buttonUp = (Button) findViewById(R.id.arrowWeightUp);
+        buttonDown = (ImageButton) findViewById(R.id.arrowWeightDown);
+        buttonUp = (ImageButton) findViewById(R.id.arrowWeightUp);
         buttonNext = (Button) findViewById(R.id.nextWeight);
         backButton = (Button) findViewById(R.id.btn_back);
         weightText = (TextView) findViewById(R.id.weightNumber);
@@ -62,10 +65,10 @@ public class WeightActivity extends AppCompatActivity {
     }
 
     public void setWeight(String sexUser){
-        if(sexUser.equals("Man")){
+        if(sexUser.equals("M")){
             weightText.setText("85");
         }
-        if(sexUser.equals("Female")){
+        if(sexUser.equals("F")){
             weightText.setText("55");
         }
     }

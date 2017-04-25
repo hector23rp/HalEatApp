@@ -1,52 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.haleat.haleat.LoginActivity"
-    android:orientation="vertical">
+    android:background="@color/bg_screen"
+    android:weightSum="1">
 
-    <EditText
-        android:layout_width="match_parent"
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/editTextEmail"
-        android:hint="Email" />
+        android:layout_marginLeft="110dp"
+        android:src="@drawable/haleatxx"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:id="@+id/editTextPassword"
-        android:hint="Contraseña" />
-
-    <CheckBox
-        android:text="Recordarme"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="horizontal"
+        android:layout_weight="0.1"
+        android:id="@+id/loginMenu">
 
-        <Button
-            android:text="Login"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonLogin"
-            android:layout_weight="1" />
+            android:layout_weight="0.10"/>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="180dp"
+            android:background="@drawable/layout_login"
+            android:layout_weight="0.5">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="18dp"
+                android:text="Email:"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                android:id="@+id/textEmail"/>
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:inputType="textEmailAddress"
+                android:layout_below="@+id/textEmail"
+                android:ems="10"
+                android:id="@+id/editTextEmail"
+                android:background="@drawable/edit_text" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="24dp"
+                android:layout_below="@+id/editTextEmail"
+                android:text="Contraseña:"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                android:id="@+id/textPassword"/>
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_below="@+id/textPassword"
+                android:background="@drawable/edit_text"
+                android:inputType="textPassword"
+                android:ems="10"
+                android:id="@+id/editTextPassword"/>
 
-        <Button
-            android:text="Registrar"
-            android:layout_width="wrap_content"
+            <CheckBox
+                android:text="Recordarme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editTextPassword"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/checkBox" />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
             android:layout_height="wrap_content"
-            android:id="@+id/buttonRegister"
-            android:layout_weight="1" />
+            android:layout_weight="0.10"/>
     </LinearLayout>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dots_height"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dots_margin_bottom"
+        android:gravity="center"
+        android:orientation="horizontal">
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha=".5"
+        android:layout_above="@id/layoutDots"
+        android:background="@android:color/white" />
+
+    <Button
+        android:id="@+id/buttonLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:text="Login"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:text="Registrar"
+        android:textColor="@android:color/white" />
+</RelativeLayout>

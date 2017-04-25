@@ -6,60 +6,149 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/bg_screen"
+    android:fitsSystemWindows="true"
     tools:context="com.haleat.haleat.NameActivity">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="textEmailAddress"
-        android:background="@color/white"
-        android:ems="10"
-        android:id="@+id/editTextEmailRegister"
-        android:hint="Email" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:src="@drawable/haleatxx"/>
 
-    <EditText
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="textPersonName"
-        android:layout_below="@+id/editTextEmailRegister"
-        android:background="@color/white"
-        android:ems="10"
-        android:id="@+id/editTextUsuarioRegister"
-        android:hint="Usuario" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="120dp"
+        android:orientation="horizontal"
+        android:layout_weight="0.1"
+        android:id="@+id/loginMenu">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="textPassword"
-        android:layout_below="@+id/editTextUsuarioRegister"
-        android:background="@color/white"
-        android:ems="10"
-        android:id="@+id/editTextPasswordRegister"
-        android:hint="Contraseña" />
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"/>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="280dp"
+            android:background="@drawable/layout_login"
+            android:layout_weight="0.5">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:inputType="textPassword"
-        android:layout_below="@+id/editTextPasswordRegister"
-        android:background="@color/white"
-        android:ems="10"
-        android:id="@+id/editTextConfirmPassword"
-        android:hint="Confirmar Contraseña" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="18dp"
+                android:text="Email:"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                android:id="@+id/textEmail"/>
+
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:inputType="textEmailAddress"
+                android:background="@drawable/edit_text"
+                android:layout_below="@+id/textEmail"
+                android:ems="10"
+                android:id="@+id/editTextEmailRegister"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="18dp"
+                android:layout_below="@+id/editTextEmailRegister"
+                android:text="Usuario:"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                android:id="@+id/textUser"/>
+
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:inputType="textPersonName"
+                android:layout_below="@+id/textUser"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:id="@+id/editTextUsuarioRegister"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@+id/editTextUsuarioRegister"
+                android:text="Contraseña:"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                android:id="@+id/textPassword"/>
+
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:inputType="textPassword"
+                android:background="@drawable/edit_text"
+                android:layout_below="@+id/textPassword"
+                android:ems="10"
+                android:id="@+id/editTextPasswordRegister"
+                android:hint="Contraseña" />
+
+            <EditText
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="4dp"
+                android:inputType="textPassword"
+                android:layout_below="@+id/editTextPasswordRegister"
+                android:background="@drawable/edit_text"
+                android:ems="10"
+                android:id="@+id/editTextConfirmPassword"
+                android:hint="Confirmar Contraseña" />
+
+            <Button
+                android:id="@+id/buttonRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_register_name"
+                android:layout_marginTop="8dp"
+                android:layout_below="@+id/editTextConfirmPassword"
+                android:layout_centerInParent="true"
+                android:text="Registrar"
+                android:textColor="@color/white"/>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.10"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/resultText"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/editTextConfirmPassword"
-        android:text="Sin Registrar" />
-
-    <Button
-        android:id="@+id/buttonRegister"
         android:layout_width="wrap_content"
+        android:layout_below="@+id/loginMenu"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:text="¡Registrado!" />
+
+    <TextView
+        android:id="@+id/textFrase"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_below="@+id/resultText"
-        android:text="Registrar"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:textColor="@color/white"
+        android:text="Calorías máximas que puede consumir: 2000" />
+
+
 
     <LinearLayout
         android:id="@+id/layoutDots"

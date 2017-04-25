@@ -29,21 +29,21 @@ public class ComplexActivity extends AppCompatActivity {
         buttonGordo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String complexSelect = "Gordo";
+                String complexSelect = "engordar";
                 launchBirthDateActivity(complexSelect);
             }
         });
         buttonDeportista.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String complexSelect = "Deportista";
+                String complexSelect = "sano";
                 launchBirthDateActivity(complexSelect);
             }
         });
         buttonDelgado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String complexSelect = "Delgado";
+                String complexSelect = "adelgazar";
                 launchBirthDateActivity(complexSelect);
             }
         });

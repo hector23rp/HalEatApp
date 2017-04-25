@@ -5,22 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_screen"
+    android:fitsSystemWindows="true"
     tools:context="com.haleat.haleat.ComplexActivity">
+
+    <ImageView
+        android:id="@+id/imageTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="110dp"
+        android:src="@drawable/haleatxx"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:layout_below="@+id/imageTitle"
+        android:text="Objetivo"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/buttonGordo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Gordo"
+        android:text="Engordar"
+        android:textSize="11dp"
+        android:background="@drawable/button_objetivo"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="24dp" />
+        android:layout_marginStart="20dp" />
 
     <Button
         android:id="@+id/buttonDelgado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Delgado"
+        android:text="Adelagazar"
+        android:textSize="11dp"
+        android:background="@drawable/button_objetivo"
         android:layout_marginEnd="12dp"
         android:layout_alignBaseline="@+id/buttonGordo"
         android:layout_alignBottom="@+id/buttonGordo"
@@ -30,7 +52,9 @@
         android:id="@+id/buttonDeportista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deportista"
+        android:text="Comer Sano"
+        android:textSize="11dp"
+        android:background="@drawable/button_objetivo"
         android:layout_alignBaseline="@+id/buttonDelgado"
         android:layout_alignBottom="@+id/buttonDelgado"
         android:layout_centerHorizontal="true" />
