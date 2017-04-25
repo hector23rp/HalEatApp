@@ -31,17 +31,19 @@
         <RelativeLayout
             android:layout_width="0dip"
             android:layout_height="180dp"
-            android:background="@drawable/layout_login"
+            android:background="@color/bg_screen"
             android:layout_weight="0.5">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginTop="18dp"
+                android:textColor="@color/white"
                 android:text="Email:"
                 android:textSize="21dp"
                 android:textStyle="bold"
                 android:id="@+id/textEmail"/>
+
             <EditText
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
@@ -49,6 +51,7 @@
                 android:inputType="textEmailAddress"
                 android:layout_below="@+id/textEmail"
                 android:ems="10"
+                android:textColor="@color/white"
                 android:id="@+id/editTextEmail"
                 android:background="@drawable/edit_text" />
             <TextView
@@ -57,6 +60,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="24dp"
                 android:layout_below="@+id/editTextEmail"
+                android:textColor="@color/white"
                 android:text="Contraseña:"
                 android:textSize="21dp"
                 android:textStyle="bold"
@@ -68,6 +72,7 @@
                 android:layout_below="@+id/textPassword"
                 android:background="@drawable/edit_text"
                 android:inputType="textPassword"
+                android:textColor="@color/white"
                 android:ems="10"
                 android:id="@+id/editTextPassword"/>
 
@@ -76,6 +81,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/editTextPassword"
+                android:textColor="@color/white"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/checkBox" />
 

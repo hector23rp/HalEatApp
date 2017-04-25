@@ -13,9 +13,8 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_logout"
-            android:text="Cerrar Sesion"
-            android:textColor="@color/white"
+            android:background="@drawable/button_objetivo"
+            android:text="LogOut"
             android:id="@+id/logOutButton" />
 
         <TextView

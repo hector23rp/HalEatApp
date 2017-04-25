@@ -31,7 +31,7 @@
     <ImageButton
         android:id="@+id/arrowUp"
         style="@style/ButtonArrow"
-        android:src="@drawable/arrowUp"
+        android:src="@drawable/arrowup"
         android:background="@drawable/button_arrow"
         android:layout_below="@+id/edadTitle"
         android:layout_marginLeft="155dp"
@@ -48,7 +48,7 @@
     <ImageButton
         android:id="@+id/arrowDown"
         style="@style/ButtonArrow"
-        android:src="@drawable/arrowDown"
+        android:src="@drawable/arrowdown"
         android:background="@drawable/button_arrow"
         android:layout_below="@+id/dateNumber"
         android:layout_marginLeft="155dp"

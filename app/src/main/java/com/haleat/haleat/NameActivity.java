@@ -3,30 +3,31 @@ package com.haleat.haleat;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.Response;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Iterator;
 
-import javax.net.ssl.HttpsURLConnection;
-
 public class NameActivity extends AppCompatActivity {
+
+    ProgressDialog dialog;
 
     String sex, complex, year, weight; //Variables que se coge de la anterior actividad.
 
@@ -34,8 +35,11 @@ public class NameActivity extends AppCompatActivity {
 
     Button finish, backButton, buttonRegister;
 
+    TextView resultText, frase;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_name);
         //Cogemos la variable que nos paso la anterior actividad.
@@ -44,6 +48,8 @@ public class NameActivity extends AppCompatActivity {
         year = getIntent().getStringExtra("year");
         weight = getIntent().getStringExtra("weight");
         //Definimos los componentes de la pantalla.
+        resultText = (TextView) findViewById(R.id.resultText);
+        frase = (TextView) findViewById(R.id.textFrase);
         user = (EditText) findViewById(R.id.editTextUsuarioRegister);
         password = (EditText) findViewById(R.id.editTextPasswordRegister);
         confirmPassword = (EditText) findViewById(R.id.editTextConfirmPassword);
@@ -123,7 +129,7 @@ public class NameActivity extends AppCompatActivity {
      * Clase encargada de realizar la comunicación con el servidor.
      */
     public class PostClass extends AsyncTask<String, Void, String> {
-        ProgressDialog dialog;
+
         private final Context context;
         public PostClass(Context c){
                 this.context = c;
@@ -143,43 +149,43 @@ public class NameActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
             try {
-                //Creamos el objeto JSON con los parámetros que le vamos a pasar al servidor.
-                JSONObject postDataParams = new JSONObject();
-                postDataParams.put("name", params[0]);
-                postDataParams.put("email", params[2]);
-                postDataParams.put("password", params[1]);
-                Log.e("params",postDataParams.toString());
                 //Realizamos la conexión con el servidor.
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                urlConnection.setConnectTimeout(95000);
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoInput(true);
-                urlConnection.setDoOutput(true);
-                urlConnection.setChunkedStreamingMode(0);
-                urlConnection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                //Enviamos la información al servidor.
-                DataOutputStream dStream = new DataOutputStream(urlConnection.getOutputStream());
-                dStream.writeBytes(getPostDataString(postDataParams));
-                dStream.flush();
-                dStream.close();
-                //Comprobamos si se ha recibido algo.
-                int responseCode = urlConnection.getResponseCode();
-                if (responseCode == HttpsURLConnection.HTTP_OK) {
-                    BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuffer sb = new StringBuffer("");
-                    String line = "";
-                    while((line = in.readLine()) != null) {
-                        sb.append(line);
-                        break;
-                    }
-                    in.close();
-                    setToken(sb.toString());
-                    result = "¡Registrado!";
-            }
-                else {
-                    Log.e("Register","HTTP Response Code: " + responseCode);
-                    result = "No Registrado "+ responseCode;
-                }
+                Ion.with(context)
+                        .load("http://haleat.com/api/signup")
+                        .setBodyParameter("name", params[0])
+                        .setBodyParameter("email", params[2])
+                        .setBodyParameter("password", params[1])
+                        .setBodyParameter("peso", params[6])
+                        .setBodyParameter("edad", params[5])
+                        .setBodyParameter("sexo", params[3])
+                        .setBodyParameter("objetivo", params[4])
+                        .asString()
+                        .withResponse()
+                        .setCallback(new FutureCallback<Response<String>>() {
+                            @Override
+                            public void onCompleted(Exception e, Response<String> result) {
+                                try {
+                                    if(result.getHeaders().code() == 200) {
+                                        JSONObject jobj = new JSONObject(result.getResult());
+                                        if(jobj.length() >= 2 ){
+                                            TokenSaver.setToken(context,jobj.getString("token"));
+                                            JSONObject json = jobj.getJSONObject("user");
+                                            JSONObject jsonTemp = json.getJSONObject("diet");
+                                            JSONObject jsonDay = jsonTemp.getJSONObject("day");
+                                            jsonDay.put("result","Registrado");
+                                            setMessage(jsonDay);
+                                        }
+                                        else{
+                                            JSONObject json = new JSONObject();
+                                            json.put("result","No Registrado");
+                                            json.put("text","El usuario introducido ya esta registrado");
+                                        }
+                                    }
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
+                            }
+                        });
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -187,14 +193,6 @@ public class NameActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result) {
-            //Si se ha registrado correctamente, hacemos visible el botón de finalizar.
-            if(result.equals("Registrado")){
-                finish.setVisibility(View.VISIBLE);
-                buttonRegister.setVisibility(View.GONE);
-            }
-            TextView textResult = (TextView) findViewById(R.id.resultText);
-            textResult.setText(result);
-            dialog.dismiss();
         }
 
         /**
@@ -226,6 +224,18 @@ public class NameActivity extends AppCompatActivity {
         }
     }
 
+    public void setMessage(JSONObject json) throws JSONException {
+        dialog.dismiss();
+        if(json.getString("result").equals("Registrado")){
+            resultText.setText("¡Registrado!");
+            frase.setText("Puedes tomar "+json.getString("kcal")+" calorías al día");
+            finish.setVisibility(View.VISIBLE);
+            buttonRegister.setVisibility(View.GONE);
+        }else{
+            resultText.setText(json.getString("result"));
+            frase.setText(json.getString("text"));
+        }
+    }
     /**
      * Inicia la actividad Login.
      */

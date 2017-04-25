@@ -515,7 +515,8 @@ public class CameraActivity extends AppCompatActivity {
                 JSONObject json = null;
                 try {
                     json = arrayJson.getJSONObject(0).getJSONObject("pred");
-                    name = json.getString("nombre");
+                    name = json.getString("nombre").replace("_"," ");
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
