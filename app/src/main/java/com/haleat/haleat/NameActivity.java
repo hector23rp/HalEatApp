@@ -175,11 +175,12 @@ public class NameActivity extends AppCompatActivity {
                                             jsonDay.put("result","Registrado");
                                             setMessage(jsonDay);
                                         }
-                                        else{
-                                            JSONObject json = new JSONObject();
-                                            json.put("result","No Registrado");
-                                            json.put("text","El usuario introducido ya esta registrado");
-                                        }
+                                    }
+                                    if(result.getHeaders().code() == 500) {
+                                        JSONObject json = new JSONObject();
+                                        json.put("result","No Registrado");
+                                        json.put("text","El usuario introducido ya esta registrado");
+                                        setMessage(json);
                                     }
                                 } catch (JSONException e1) {
                                     e1.printStackTrace();

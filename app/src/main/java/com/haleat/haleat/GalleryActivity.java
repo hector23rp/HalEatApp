@@ -164,7 +164,7 @@ public class GalleryActivity extends AppCompatActivity {
      * @param json
      */
     public String getMessage(JSONObject json) throws JSONException {
-       String message = json.getString("nameFood");
+       String message = json.getString("image");
         return message;
     }
 

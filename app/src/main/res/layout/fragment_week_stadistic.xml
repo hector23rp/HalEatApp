@@ -31,13 +31,20 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_calories_week"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_calorias_week">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_calories_week"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -73,13 +80,20 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_proteins_week"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_proteinas_week">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_proteins_week"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -115,13 +129,20 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_grasas_week"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_grasas_week">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_grasas_week"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -157,13 +178,20 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_hidratos_week"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_hidratos_week">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_hidratos_week"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -199,13 +227,19 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_azucar_week"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_azucar_week">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_azucar_week"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

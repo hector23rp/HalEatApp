@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Base64;
 import android.util.Log;
@@ -72,13 +71,6 @@ public class ImageActivity extends AppCompatActivity {
 
     public void requestToServer(){
         new PostClass(this).execute(nameImage);
-    }
-    /**
-     * Carga la imagen guardada en la pantalla.
-     */
-    public void setImageFile(){
-        Bitmap bmImg = BitmapFactory.decodeFile(Environment.getExternalStorageDirectory() + "/Haleat/food.jpeg");
-        image.setImageBitmap(bmImg);
     }
 
     /**

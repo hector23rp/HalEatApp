@@ -30,14 +30,19 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="italic"/>
-
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_calories_day"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_calorias">
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_calories_day"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
+
 
             </RelativeLayout>
 
@@ -72,6 +77,10 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="italic"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@+id/text_proteinas">
 
                 <com.haleat.haleat.RectView
                     android:layout_width="120dp"
@@ -80,6 +89,7 @@
                     android:id="@+id/rect_proteins_day"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true" />
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -115,13 +125,19 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_grasas_day"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_grasas">
+
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_grasas_day"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
 
             </RelativeLayout>
 
@@ -157,14 +173,18 @@
                     android:textSize="18dp"
                     android:textStyle="italic"/>
 
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_hidratos_day"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
-
+                    android:layout_toLeftOf="@+id/text_hidratos">
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_hidratos_day"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <TextView
@@ -198,15 +218,19 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"
                     android:textStyle="italic"/>
-
-                <com.haleat.haleat.RectView
-                    android:layout_width="120dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:id="@+id/rect_azucar_day"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toLeftOf="@+id/text_azucar">
 
+                    <com.haleat.haleat.RectView
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:id="@+id/rect_azucar_day"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentStart="true" />
+                </RelativeLayout>
             </RelativeLayout>
 
             <TextView
