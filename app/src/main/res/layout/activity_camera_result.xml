@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:fitsSystemWindows="true"
     android:weightSum="1"
-    tools:context="com.haleat.haleat.CameraResult">
+    tools:context="com.lpro.haleater.CameraResult">
 
     <RelativeLayout
         android:layout_width="match_parent"

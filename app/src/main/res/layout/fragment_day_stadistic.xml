@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.haleat.haleat.DayStadisticFragment">
+    tools:context="com.lpro.haleater.DayStadisticFragment">
 
     <LinearLayout
         android:layout_height="match_parent"
@@ -34,7 +34,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_calorias">
-                    <com.haleat.haleat.RectView
+                    <com.lpro.haleater.RectView
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -82,7 +82,7 @@
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/text_proteinas">
 
-                <com.haleat.haleat.RectView
+                <com.lpro.haleater.RectView
                     android:layout_width="120dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -130,7 +130,7 @@
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_grasas">
 
-                    <com.haleat.haleat.RectView
+                    <com.lpro.haleater.RectView
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -177,7 +177,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_hidratos">
-                    <com.haleat.haleat.RectView
+                    <com.lpro.haleater.RectView
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -223,7 +223,7 @@
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_azucar">
 
-                    <com.haleat.haleat.RectView
+                    <com.lpro.haleater.RectView
                         android:layout_width="120dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"

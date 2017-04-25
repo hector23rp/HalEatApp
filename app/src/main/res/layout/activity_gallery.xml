@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white"
     android:fitsSystemWindows="true"
-    tools:context="com.haleat.haleat.GalleryActivity">
+    tools:context="com.lpro.haleater.GalleryActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"

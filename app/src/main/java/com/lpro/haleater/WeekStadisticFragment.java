@@ -1,4 +1,4 @@
-package com.haleat.haleat;
+package com.lpro.haleater;
 
 import android.content.Context;
 import android.net.Uri;
@@ -13,12 +13,12 @@ import android.widget.TextView;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DayStadisticFragment.OnFragmentInteractionListener} interface
+ * {@link WeekStadisticFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DayStadisticFragment#newInstance} factory method to
+ * Use the {@link WeekStadisticFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DayStadisticFragment extends Fragment {
+public class WeekStadisticFragment extends Fragment {
     //Claves para coger los parámetros que recibe el fragmento.
     private static final String ARG_PROTEINAS= "proteinas";
     private static final String ARG_KILO = "kilocalorias";
@@ -26,11 +26,11 @@ public class DayStadisticFragment extends Fragment {
     private static final String ARG_HIDRATOS = "hidratos";
     private static final String ARG_AZUCAR = "azucar";
 
-    private Integer proteinas;  //Proteinas del dia.
-    private Integer kilocalorias;   //Kilocalorias del dia.
-    private Integer grasas;     //Grasas del dia.
-    private Integer hidratos;   //Hidratos del dia.
-    private Integer azucar;     //Azucar del día.
+    private Integer proteinas;  //Proteinas de la semana.
+    private Integer kilocalorias;   //Kilocalorias de la semana.
+    private Integer grasas;     //Grasas de la semana.
+    private Integer hidratos;   //Hidratos de la semana.
+    private Integer azucar;     //Azucar de la semana.
 
     private RectView rectProteinas;
     private RectView rectCalorias;
@@ -46,12 +46,12 @@ public class DayStadisticFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DayStadisticFragment() {
+    public WeekStadisticFragment() {
         // Required empty public constructor
     }
 
-    public static DayStadisticFragment newInstance() {
-        DayStadisticFragment fragment = new DayStadisticFragment();
+    public static WeekStadisticFragment newInstance() {
+        WeekStadisticFragment fragment = new WeekStadisticFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -74,19 +74,19 @@ public class DayStadisticFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_day_stadistic, container, false);
+        View view = inflater.inflate(R.layout.fragment_week_stadistic, container, false);
         //Declaramos los progressBar de cada compoenente
-        rectProteinas = (RectView) view.findViewById(R.id.rect_proteins_day);
-        rectCalorias = (RectView) view.findViewById(R.id.rect_calories_day);
-        rectGrasas = (RectView) view.findViewById(R.id.rect_grasas_day);
-        rectHidratos = (RectView) view.findViewById(R.id.rect_hidratos_day);
-        rectAzucar = (RectView) view.findViewById(R.id.rect_azucar_day);
+        rectProteinas = (RectView) view.findViewById(R.id.rect_proteins_week);
+        rectCalorias = (RectView) view.findViewById(R.id.rect_calories_week);
+        rectGrasas = (RectView) view.findViewById(R.id.rect_grasas_week);
+        rectHidratos = (RectView) view.findViewById(R.id.rect_hidratos_week);
+        rectAzucar = (RectView) view.findViewById(R.id.rect_azucar_week);
         //Declaramos los textView
-        textProteinas = (TextView) view.findViewById(R.id.text_proteinas);
-        textCalorias = (TextView) view.findViewById(R.id.text_calorias);
-        textGrasas = (TextView) view.findViewById(R.id.text_grasas);
-        textHidratos = (TextView) view.findViewById(R.id.text_hidratos);
-        textAzucar = (TextView) view.findViewById(R.id.text_azucar);
+        textProteinas = (TextView) view.findViewById(R.id.text_proteinas_week);
+        textCalorias = (TextView) view.findViewById(R.id.text_calorias_week);
+        textGrasas = (TextView) view.findViewById(R.id.text_grasas_week);
+        textHidratos = (TextView) view.findViewById(R.id.text_hidratos_week);
+        textAzucar = (TextView) view.findViewById(R.id.text_azucar_week);
         //Agregamos el ancho de cada cuadrado a partir de los valores de cada componente.
         setParamsWidth();
         return view;

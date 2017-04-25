@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.haleat.haleat.LoginActivity"
+    tools:context="com.lpro.haleater.LoginActivity"
     android:background="@color/bg_screen"
     android:weightSum="1">
 

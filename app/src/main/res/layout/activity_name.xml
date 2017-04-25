@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/bg_screen"
     android:fitsSystemWindows="true"
-    tools:context="com.haleat.haleat.NameActivity">
+    tools:context="com.lpro.haleater.NameActivity">
 
     <ImageView
         android:layout_width="wrap_content"

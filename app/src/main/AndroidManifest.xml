@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.haleat.haleat">
+    package="com.lpro.haleater">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -17,12 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CameraActivity"
+            android:name="com.lpro.haleater.CameraActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".IntroActivity"
+            android:name="com.lpro.haleater.IntroActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name">
             <intent-filter>
@@ -31,17 +31,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
+        <activity android:name="com.lpro.haleater.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
-            android:name=".FullscreenActivity"
+            android:name="com.lpro.haleater.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
-        <activity android:name=".CameraResult" />
-        <activity android:name=".LoginActivity"
+        <activity android:name="com.lpro.haleater.CameraResult" />
+        <activity android:name="com.lpro.haleater.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".RegisterActivity" />
+        <activity android:name="com.lpro.haleater.RegisterActivity" />
         <!--
      ATTENTION: This was auto-generated to add Google Play services to your project for
      App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -50,13 +50,13 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".ComplexActivity" />
-        <activity android:name=".WeightActivity" />
-        <activity android:name=".BirthDateActivity" />
-        <activity android:name=".NameActivity" />
-        <activity android:name=".CameraResultUserActivity" />
-        <activity android:name=".GalleryActivity" />
-        <activity android:name=".ImageActivity"></activity>
+        <activity android:name="com.lpro.haleater.ComplexActivity" />
+        <activity android:name="com.lpro.haleater.WeightActivity" />
+        <activity android:name="com.lpro.haleater.BirthDateActivity" />
+        <activity android:name="com.lpro.haleater.NameActivity" />
+        <activity android:name="com.lpro.haleater.CameraResultUserActivity" />
+        <activity android:name="com.lpro.haleater.GalleryActivity" />
+        <activity android:name="com.lpro.haleater.ImageActivity"></activity>
     </application>
 
 </manifest>

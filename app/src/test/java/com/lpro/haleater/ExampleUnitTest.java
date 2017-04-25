@@ -1,4 +1,4 @@
-package com.haleat.haleat;
+package com.lpro.haleater;
 
 import org.junit.Test;
 

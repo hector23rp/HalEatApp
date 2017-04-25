@@ -1,4 +1,4 @@
-package com.haleat.haleat;
+package com.lpro.haleater;
 
 import android.annotation.SuppressLint;
 import android.support.v7.app.ActionBar;

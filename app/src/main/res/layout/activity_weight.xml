@@ -7,7 +7,7 @@
     android:background="@color/bg_screen"
     android:weightSum="100"
     android:fitsSystemWindows="true"
-    tools:context="com.haleat.haleat.WeightActivity">
+    tools:context="com.lpro.haleater.WeightActivity">
 
     <ImageView
         android:id="@+id/imageTitle"

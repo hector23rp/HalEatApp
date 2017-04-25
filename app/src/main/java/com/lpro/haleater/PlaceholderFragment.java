@@ -1,4 +1,4 @@
-package com.haleat.haleat;
+package com.lpro.haleater;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

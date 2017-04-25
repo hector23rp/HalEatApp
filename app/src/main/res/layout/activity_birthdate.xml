@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:weightSum="100"
     android:fitsSystemWindows="true"
-    tools:context="com.haleat.haleat.BirthDateActivity">
+    tools:context="com.lpro.haleater.BirthDateActivity">
 
     <ImageView
         android:id="@+id/imageTitle"

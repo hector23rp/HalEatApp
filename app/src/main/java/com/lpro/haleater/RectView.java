@@ -1,4 +1,4 @@
-package com.haleat.haleat;
+package com.lpro.haleater;
 
 import android.content.Context;
 import android.graphics.Canvas;

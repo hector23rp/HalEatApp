@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.haleat.haleat.StadisticFragment">
+    tools:context="com.lpro.haleater.StadisticFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
