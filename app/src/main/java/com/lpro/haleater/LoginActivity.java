@@ -18,6 +18,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -172,7 +173,11 @@ public class LoginActivity extends AppCompatActivity {
             //Si se ha registrado correctamente, hacemos visible el botón de finalizar.
             if(result.equals("Logueado")){
                 if(remember.isChecked()){
-                    TokenSaver.setRemember(context,1);
+                    try {
+                        TokenSaver.setRemember(context,"Logueado");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
                 launchCameraActivity();
             }

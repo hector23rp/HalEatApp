@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements DayStadisticFragment.OnFragmentInteractionListener, WeekStadisticFragment.OnFragmentInteractionListener{
 
     /**
@@ -47,25 +49,41 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         buttonCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectItem("Camera");
+                try {
+                    selectItem("Camera");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectItem("LogOut");
+                try {
+                    selectItem("LogOut");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         buttonGallery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                selectItem("Gallery");
+                try {
+                    selectItem("Gallery");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         //Iniciamos la pantalla de estadísticas.
         drawerTitle = getResources().getString(R.string.stadistic);
         if (savedInstanceState == null) {
-            selectItem(drawerTitle);
+            try {
+                selectItem(drawerTitle);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -88,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
         return super.onOptionsItemSelected(item);
     }
 
-    private void selectItem(String title) {
+    private void selectItem(String title) throws IOException {
         // Enviar título como arguemento del fragmento
         Bundle args = new Bundle();
         args.putString(PlaceholderFragment.ARG_SECTION_TITLE, title);
@@ -105,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements DayStadisticFragm
                 finish();
                 break;
             case "LogOut":
-                TokenSaver.setRemember(this,0);
+                TokenSaver.setRemember(this,"");
                 TokenSaver.setToken(this,"");
                 startActivity(new Intent(this, LoginActivity.class));
                 finish();

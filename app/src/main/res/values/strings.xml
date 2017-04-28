@@ -6,10 +6,8 @@
     <string name="title_activity_welcome">Home Screen</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
-
     <string name="slide_title">HalEat</string>
     <string name="slide_desc">Hal eat, human!</string>
-
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="camera">Camera</string>
@@ -25,7 +23,7 @@
     <string name="calories">calorías</string>
     <string name="proteins">proteínas</string>
     <string name="hidratos">hidratos</string>
-    <string name="azucar">azucar</string>
+    <string name="azucar">azúcar</string>
 
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="title_activity_login">Sign in</string>

@@ -76,6 +76,8 @@ public class CameraActivity extends AppCompatActivity {
 
     private static String KEY_RESULT = "KEY_RESULT";    //Clave de el parámetro que indica si comes bien o no.
     private static String KEY_RESULT_WEEK = "KEY_RESULT_WEEK";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
+    private static String KEY_FRASE_DAY = "KEY_RESULT_DAY";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
+    private static String KEY_FRASE_WEEK = "KEY_RESULT_WEEK";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
     private static String KEY_NAME = "KEY_NAME";    //Clave de el parámetro que indica el nombre del alimento.
     private static String KEY_PROTEINAS = "KEY_PROTEINAS";  //Clave de el parámetro proteinas.
     private static String KEY_CALORIAS = "KEY_CALORIAS";  //Clave de el parámetro calorias.
@@ -496,6 +498,8 @@ public class CameraActivity extends AppCompatActivity {
                 String azucar = null;
                 String checkDay = null;
                 String checkWeek = null;
+                String fraseDay = null;
+                String fraseWeek = null;
                 JSONArray arrayJson = new JSONArray();
                 JSONObject jsonCheck = new JSONObject();
                 try {
@@ -503,6 +507,8 @@ public class CameraActivity extends AppCompatActivity {
                     jsonCheck = jobj.getJSONObject("diet");
                     checkDay = jsonCheck.getString("day");
                     checkWeek = jsonCheck.getString("week");
+                    fraseDay = jsonCheck.getString("fraseDay");
+                    fraseWeek = jsonCheck.getString("fraseWeek");
                     proteinas = jobj.getString("proteinas");
                     calorias = jobj.getString("kcal");
                     hidratos = jobj.getString("hidratosC");
@@ -533,6 +539,8 @@ public class CameraActivity extends AppCompatActivity {
                 else{
                     intent.putExtra(KEY_RESULT_WEEK, true);
                 }
+                intent.putExtra(KEY_FRASE_DAY, fraseDay);
+                intent.putExtra(KEY_FRASE_WEEK, fraseWeek);
                 intent.putExtra(KEY_NAME, name);
                 intent.putExtra(KEY_PROTEINAS, proteinas);
                 intent.putExtra(KEY_CALORIAS, calorias);

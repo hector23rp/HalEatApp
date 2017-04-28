@@ -32,6 +32,7 @@ public class StadisticFragment extends Fragment{
     private Button buttonWeek;  //Botón que al pulsar aparaece las estadísticas de la semana.
     private Map<String, Integer> mapStadisticDay;   //Contiene los parámetros correspondientes al día.
     private Map<String, Integer> mapStadisticWeek;  //Contiene los parámetros correspondientes a la semana.
+    private ProgressDialog dialog;
     private String selectedStadistic;
     public StadisticFragment() {
         // Required empty public constructor
@@ -127,11 +128,21 @@ public class StadisticFragment extends Fragment{
         String hidratos = null;
         String grasas = null;
         String azucar = null;
+        String proteinasDayMax = null;
+        String caloriasDayMax = null;
+        String hidratosDayMax = null;
+        String grasasDayMax = null;
+        String azucarDayMax = null;
         String proteinasWeek = null;
         String caloriasWeek = null;
         String hidratosWeek = null;
         String grasasWeek = null;
         String azucarWeek = null;
+        String proteinasWeekMax = null;
+        String caloriasWeekMax = null;
+        String hidratosWeekMax = null;
+        String grasasWeekMax = null;
+        String azucarWeekMax = null;
         try {
             proteinas = jsonDay.getString("proteinas");
             calorias = jsonDay.getString("kcal");
@@ -139,12 +150,22 @@ public class StadisticFragment extends Fragment{
             grasas = jsonDay.getString("grasas");
             calorias = jsonDay.getString("kcal");
             azucar = jsonDay.getString("azucar");
+            proteinasDayMax = jsonDay.getString("proteinasMax");
+            caloriasDayMax = jsonDay.getString("kcalMax");
+            hidratosDayMax = jsonDay.getString("hidratosCMax");
+            grasasDayMax = jsonDay.getString("grasasMax");
+            azucarDayMax = jsonDay.getString("azucarMax");
             proteinasWeek = jsonWeek.getString("proteinas");
             caloriasWeek = jsonWeek.getString("kcal");
             hidratosWeek = jsonWeek.getString("hidratosC");
             grasasWeek = jsonWeek.getString("grasas");
             caloriasWeek = jsonWeek.getString("kcal");
             azucarWeek = jsonWeek.getString("azucar");
+            proteinasWeekMax = jsonWeek.getString("proteinasMax");
+            caloriasWeekMax = jsonWeek.getString("kcalMax");
+            hidratosWeekMax = jsonWeek.getString("hidratosCMax");
+            grasasWeekMax = jsonWeek.getString("grasasMax");
+            azucarWeekMax = jsonWeek.getString("azucarMax");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -153,21 +174,41 @@ public class StadisticFragment extends Fragment{
         Double numberGrasas = Double.parseDouble(grasas);
         Double numberHidratos = Double.parseDouble(hidratos);
         Double numberAzucar = Double.parseDouble(azucar);
+        Double numberProteinasDayMax = Double.parseDouble(proteinasDayMax);
+        Double numberCaloriasDayMax = Double.parseDouble(caloriasDayMax);
+        Double numberGrasasDayMax = Double.parseDouble(grasasDayMax);
+        Double numberHidratosDayMax = Double.parseDouble(hidratosDayMax);
+        Double numberAzucarDayMax = Double.parseDouble(azucarDayMax);
         Double numberProteinasWeek = Double.parseDouble(proteinasWeek);
         Double numberCaloriasWeek = Double.parseDouble(caloriasWeek);
         Double numberGrasasWeek = Double.parseDouble(grasasWeek);
         Double numberHidratosWeek = Double.parseDouble(hidratosWeek);
         Double numberAzucarWeek = Double.parseDouble(azucarWeek);
+        Double numberProteinasWeekMax = Double.parseDouble(proteinasWeekMax);
+        Double numberCaloriasWeekMax = Double.parseDouble(caloriasWeekMax);
+        Double numberGrasasWeekMax = Double.parseDouble(grasasWeekMax);
+        Double numberHidratosWeekMax = Double.parseDouble(hidratosWeekMax);
+        Double numberAzucarWeekMax = Double.parseDouble(azucarWeekMax);
         mapStadisticDay.put("proteinas",numberProteinas.intValue());
         mapStadisticDay.put("kilocalorias",numberCalorias.intValue());
         mapStadisticDay.put("grasas",numberGrasas.intValue());
         mapStadisticDay.put("hidratos",numberHidratos.intValue());
         mapStadisticDay.put("azucar",numberAzucar.intValue());
+        mapStadisticDay.put("proteinasMax",numberProteinasDayMax.intValue());
+        mapStadisticDay.put("kilocaloriasMax",numberCaloriasDayMax.intValue());
+        mapStadisticDay.put("grasasMax",numberGrasasDayMax.intValue());
+        mapStadisticDay.put("hidratosMax",numberHidratosDayMax.intValue());
+        mapStadisticDay.put("azucarMax",numberAzucarDayMax.intValue());
         mapStadisticWeek.put("proteinas",numberProteinasWeek.intValue());
         mapStadisticWeek.put("kilocalorias",numberCaloriasWeek.intValue());
         mapStadisticWeek.put("grasas",numberGrasasWeek.intValue());
         mapStadisticWeek.put("hidratos",numberHidratosWeek.intValue());
         mapStadisticWeek.put("azucar",numberAzucarWeek.intValue());
+        mapStadisticWeek.put("proteinasMax",numberProteinasWeekMax.intValue());
+        mapStadisticWeek.put("kilocaloriasMax",numberCaloriasWeekMax.intValue());
+        mapStadisticWeek.put("grasasMax",numberGrasasWeekMax.intValue());
+        mapStadisticWeek.put("hidratosMax",numberHidratosWeekMax.intValue());
+        mapStadisticWeek.put("azucarMax",numberAzucarWeekMax.intValue());
     }
 
     /**
@@ -183,6 +224,11 @@ public class StadisticFragment extends Fragment{
             arguments.putInt("grasas",mapStadisticDay.get("grasas"));
             arguments.putInt("hidratos",mapStadisticDay.get("hidratos"));
             arguments.putInt("azucar",mapStadisticDay.get("azucar"));
+            arguments.putInt("proteinasMax",mapStadisticDay.get("proteinasMax"));
+            arguments.putInt("kilocaloriasMax",mapStadisticDay.get("kilocaloriasMax"));
+            arguments.putInt("grasasMax",mapStadisticDay.get("grasasMax"));
+            arguments.putInt("hidratosMax",mapStadisticDay.get("hidratosMax"));
+            arguments.putInt("azucarMax",mapStadisticDay.get("azucarMax"));
         }
         if(title.equals("Semana")){
             arguments.putInt("proteinas",mapStadisticWeek.get("proteinas"));
@@ -190,6 +236,11 @@ public class StadisticFragment extends Fragment{
             arguments.putInt("grasas",mapStadisticWeek.get("grasas"));
             arguments.putInt("hidratos",mapStadisticWeek.get("hidratos"));
             arguments.putInt("azucar",mapStadisticWeek.get("azucar"));
+            arguments.putInt("proteinasMax",mapStadisticWeek.get("proteinasMax"));
+            arguments.putInt("kilocaloriasMax",mapStadisticWeek.get("kilocaloriasMax"));
+            arguments.putInt("grasasMax",mapStadisticWeek.get("grasasMax"));
+            arguments.putInt("hidratosMax",mapStadisticWeek.get("hidratosMax"));
+            arguments.putInt("azucarMax",mapStadisticWeek.get("azucarMax"));
         }
         return arguments;
     }
@@ -198,7 +249,7 @@ public class StadisticFragment extends Fragment{
      * Clase encargada de realizar la comunicación con el servidor.
      */
     public class PostClass extends AsyncTask<String, Void, String> {
-        ProgressDialog dialog;
+
         private final Context context;
         public PostClass(Context c){
             this.context = c;
@@ -223,6 +274,7 @@ public class StadisticFragment extends Fragment{
                     .setCallback(new FutureCallback<Response<String>>() {
                         @Override
                         public void onCompleted(Exception e, Response<String> result) {
+                            dialog.dismiss();
                             try {
                                 if(result.getHeaders().code() == 200) {
                                     JSONObject jobj = new JSONObject(result.getResult());
@@ -238,7 +290,7 @@ public class StadisticFragment extends Fragment{
         }
 
         protected void onPostExecute(String result) {
-            dialog.dismiss();
+
         }
     }
 }

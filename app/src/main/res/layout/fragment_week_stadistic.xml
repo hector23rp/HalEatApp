@@ -24,14 +24,14 @@
                     android:id="@+id/text_calorias_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutCaloriesWeek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_calorias_week">
@@ -73,14 +73,14 @@
                     android:id="@+id/text_proteinas_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutProteinasWeek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_proteinas_week">
@@ -122,14 +122,14 @@
                     android:id="@+id/text_grasas_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutGrasasWeek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_grasas_week">
@@ -171,14 +171,14 @@
                     android:id="@+id/text_hidratos_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutHidratosWeek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_hidratos_week">
@@ -220,14 +220,14 @@
                     android:id="@+id/text_azucar_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutAzucarWeek"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_azucar_week">

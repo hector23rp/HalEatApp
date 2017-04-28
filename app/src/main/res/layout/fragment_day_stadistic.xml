@@ -24,13 +24,13 @@
                     android:id="@+id/text_calorias"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
                 <RelativeLayout
+                    android:id="@+id/relativelayoutCaloriesDay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_calorias">
@@ -71,13 +71,13 @@
                     android:id="@+id/text_proteinas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
             <RelativeLayout
+                android:id="@+id/relativelayoutProteinasDay"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/text_proteinas">
@@ -118,14 +118,14 @@
                     android:id="@+id/text_grasas"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutGrasasDay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_grasas">
@@ -166,14 +166,14 @@
                     android:id="@+id/text_hidratos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
 
                 <RelativeLayout
+                    android:id="@+id/relativelayoutHidratosDay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_hidratos">
@@ -185,6 +185,7 @@
                         android:layout_alignParentTop="true"
                         android:layout_alignParentStart="true" />
                 </RelativeLayout>
+
             </RelativeLayout>
 
             <TextView
@@ -212,13 +213,13 @@
                     android:id="@+id/text_azucar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20%"
-                    android:layout_marginTop="18dp"
+                    android:layout_marginTop="20dp"
                     android:layout_alignParentRight="true"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="13dp"
                     android:textStyle="italic"/>
                 <RelativeLayout
+                    android:id="@+id/relativelayoutAzucarDay"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/text_azucar">

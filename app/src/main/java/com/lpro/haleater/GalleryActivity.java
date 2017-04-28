@@ -23,6 +23,7 @@ import com.koushikdutta.ion.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Future;
 
@@ -115,7 +116,11 @@ public class GalleryActivity extends AppCompatActivity {
         butonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchLoginActivity();
+                try {
+                    launchLoginActivity();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
         buttonStadistic.setOnClickListener(new View.OnClickListener() {
@@ -137,8 +142,8 @@ public class GalleryActivity extends AppCompatActivity {
     /**
      * Inicia la actividad de Login.
      */
-    public void launchLoginActivity(){
-        TokenSaver.setRemember(this,0);
+    public void launchLoginActivity() throws IOException {
+        TokenSaver.setRemember(this,"");
         TokenSaver.setToken(this,"");
         startActivity(new Intent(this, LoginActivity.class));
         finish();

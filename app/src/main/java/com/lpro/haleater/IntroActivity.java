@@ -15,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import java.io.IOException;
+
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -42,7 +44,11 @@ public class IntroActivity extends AppCompatActivity {
         skipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchActivity();
+                try {
+                    launchActivity();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -66,7 +72,8 @@ public class IntroActivity extends AppCompatActivity {
     /**
      * Inicia una determinada actividad dependiendo de si se ha inicado sesión anteriormente.
      */
-    private void launchActivity(){
+    private void launchActivity() throws IOException {
+        TokenSaver.init();
         if(TokenSaver.checkRemember(this)){
             launchCameraActivity();
         }

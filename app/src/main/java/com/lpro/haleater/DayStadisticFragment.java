@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -25,12 +27,33 @@ public class DayStadisticFragment extends Fragment {
     private static final String ARG_GRASAS = "grasas";
     private static final String ARG_HIDRATOS = "hidratos";
     private static final String ARG_AZUCAR = "azucar";
+    private static final String ARG_PROTEINAS_MAX= "proteinasMax";
+    private static final String ARG_KILO_MAX = "kilocaloriasMax";
+    private static final String ARG_GRASAS_MAX = "grasasMax";
+    private static final String ARG_HIDRATOS_MAX = "hidratosMax";
+    private static final String ARG_AZUCAR_MAX = "azucarMax";
 
     private Integer proteinas;  //Proteinas del dia.
     private Integer kilocalorias;   //Kilocalorias del dia.
     private Integer grasas;     //Grasas del dia.
     private Integer hidratos;   //Hidratos del dia.
     private Integer azucar;     //Azucar del día.
+    private Integer proteinasMax;
+    private Integer kilocaloriasMax;
+    private Integer grasasMax;
+    private Integer hidratosMax;
+    private Integer azucarMax;
+    private Integer proteinasNorm;
+    private Integer kilocaloriasNorm;
+    private Integer grasasNorm;
+    private Integer hidratosNorm;
+    private Integer azucarNorm;
+
+    private RelativeLayout layoutProteinas;
+    private RelativeLayout layoutCalorias;
+    private RelativeLayout layoutGrasas;
+    private RelativeLayout layoutHidratos;
+    private RelativeLayout layoutAzucar;
 
     private RectView rectProteinas;
     private RectView rectCalorias;
@@ -67,6 +90,11 @@ public class DayStadisticFragment extends Fragment {
             grasas = getArguments().getInt(ARG_GRASAS);
             hidratos = getArguments().getInt(ARG_HIDRATOS);
             azucar = getArguments().getInt(ARG_AZUCAR);
+            proteinasMax = getArguments().getInt(ARG_PROTEINAS_MAX);
+            kilocaloriasMax = getArguments().getInt(ARG_KILO_MAX);
+            grasasMax = getArguments().getInt(ARG_GRASAS_MAX);
+            hidratosMax = getArguments().getInt(ARG_HIDRATOS_MAX);
+            azucarMax = getArguments().getInt(ARG_AZUCAR_MAX);
         }
     }
 
@@ -75,6 +103,12 @@ public class DayStadisticFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_day_stadistic, container, false);
+        //Definimos los RelativeLayout de cada componente.
+        layoutProteinas = (RelativeLayout) view.findViewById(R.id.relativelayoutProteinasDay);
+        layoutCalorias = (RelativeLayout) view.findViewById(R.id.relativelayoutCaloriesDay);
+        layoutGrasas = (RelativeLayout) view.findViewById(R.id.relativelayoutGrasasDay);
+        layoutHidratos = (RelativeLayout) view.findViewById(R.id.relativelayoutHidratosDay);
+        layoutAzucar = (RelativeLayout) view.findViewById(R.id.relativelayoutAzucarDay);
         //Declaramos los progressBar de cada compoenente
         rectProteinas = (RectView) view.findViewById(R.id.rect_proteins_day);
         rectCalorias = (RectView) view.findViewById(R.id.rect_calories_day);
@@ -88,8 +122,26 @@ public class DayStadisticFragment extends Fragment {
         textHidratos = (TextView) view.findViewById(R.id.text_hidratos);
         textAzucar = (TextView) view.findViewById(R.id.text_azucar);
         //Agregamos el ancho de cada cuadrado a partir de los valores de cada componente.
-        setParamsWidth();
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                layoutProteinas.post(new Runnable() {
+                    public void run() {
+                        normalizar();
+                        setParamsWidth();
+                    }
+                });
+            }
+        });
         return view;
+    }
+
+    public void normalizar(){
+        proteinasNorm = (proteinas * layoutProteinas.getWidth())/proteinasMax;
+        kilocaloriasNorm = (kilocalorias * layoutCalorias.getWidth())/kilocaloriasMax;
+        grasasNorm = (grasas * layoutGrasas.getWidth())/grasasMax;
+        hidratosNorm = (hidratos * layoutHidratos.getWidth())/hidratosMax;
+        azucarNorm = (azucar * layoutAzucar.getWidth())/azucarMax;
     }
 
     /**
@@ -97,24 +149,39 @@ public class DayStadisticFragment extends Fragment {
      */
     public void setParamsWidth(){
         ViewGroup.LayoutParams paramsCalorias = rectCalorias.getLayoutParams();
-        paramsCalorias.width = kilocalorias/50;
-        textCalorias.setText(String.valueOf(kilocalorias));
+        paramsCalorias.width = kilocaloriasNorm;
+        double dk = 1.0 * kilocalorias;
+        double dkM = 1.0 * kilocaloriasMax;
+        double dkR = (dk/dkM)*100;
+        textCalorias.setText(String.format("%.2f", dkR)+"%");
         rectCalorias.setLayoutParams(paramsCalorias);
         ViewGroup.LayoutParams paramsProteinas = rectProteinas.getLayoutParams();
-        paramsProteinas.width = proteinas;
-        textProteinas.setText(String.valueOf(proteinas));
+        paramsProteinas.width = proteinasNorm;
+        dk = 1.0 * proteinas;
+        dkM = 1.0 * proteinasMax;
+        dkR = (dk/dkM)*100;
+        textProteinas.setText(String.format("%.2f", dkR)+"%");
         rectProteinas.setLayoutParams(paramsProteinas);
         ViewGroup.LayoutParams paramsGrasas = rectGrasas.getLayoutParams();
-        paramsGrasas.width = grasas;
-        textGrasas.setText(String.valueOf(grasas));
+        paramsGrasas.width = grasasNorm;
+        dk = 1.0 * grasas;
+        dkM = 1.0 * grasasMax;
+        dkR = (dk/dkM)*100;
+        textGrasas.setText(String.format("%.2f", dkR)+"%");
         rectGrasas.setLayoutParams(paramsGrasas);
         ViewGroup.LayoutParams paramsHidratos = rectHidratos.getLayoutParams();
-        paramsHidratos.width = hidratos;
-        textHidratos.setText(String.valueOf(hidratos));
+        paramsHidratos.width = hidratosNorm;
+        dk = 1.0 * hidratos;
+        dkM = 1.0 * hidratosMax;
+        dkR = (dk/dkM)*100;
+        textHidratos.setText(String.format("%.2f", dkR)+"%");
         rectHidratos.setLayoutParams(paramsHidratos);
         ViewGroup.LayoutParams paramsAzucar = rectAzucar.getLayoutParams();
-        paramsAzucar.width = azucar;
-        textAzucar.setText(String.valueOf(azucar));
+        paramsAzucar.width = azucarNorm;
+        dk = 1.0 * azucar;
+        dkM = 1.0 * azucarMax;
+        dkR = (dk/dkM)*100;
+        textAzucar.setText(String.format("%.2f", dkR)+"%");
         rectAzucar.setLayoutParams(paramsAzucar);
     }
 

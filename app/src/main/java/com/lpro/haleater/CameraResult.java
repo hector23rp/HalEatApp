@@ -12,6 +12,8 @@ public class CameraResult extends AppCompatActivity {
 
     private static String KEY_RESULT = "KEY_RESULT";    //Nos permite coger de la anterior actividad el parámetro que indica si comes bien o no.
     private static String KEY_RESULT_WEEK = "KEY_RESULT_WEEK";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
+    private static String KEY_FRASE_DAY = "KEY_RESULT_DAY";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
+    private static String KEY_FRASE_WEEK = "KEY_RESULT_WEEK";    //Clave de el parámetro que indica si comes bien o no en lo que llevas de semana.
     private static String KEY_NAME = "KEY_NAME";    //Nos permite coger de la anterior actividad el parámetro que indica el nombre del alimento.
     private static String KEY_PROTEINAS = "KEY_PROTEINAS";  //Nos permite coger de la anterior actividad el parámetro proteinas.
     private static String KEY_CALORIAS = "KEY_CALORIAS";  //Nos permite coger de la anterior actividad el parámetro calorias.
@@ -54,25 +56,18 @@ public class CameraResult extends AppCompatActivity {
     /**
      * Agrega los parámetros recibidos de la actividad anterior al texto correspondiente.
      */
-    public void setParams(){
-        boolean checkDay = getIntent().getBooleanExtra(KEY_RESULT,false);
-        boolean checkWeek = getIntent().getBooleanExtra(KEY_RESULT_WEEK,false);
-        if(checkDay){
+    public void setParams() {
+        boolean checkDay = getIntent().getBooleanExtra(KEY_RESULT, false);
+        boolean checkWeek = getIntent().getBooleanExtra(KEY_RESULT_WEEK, false);
+        if (checkDay) {
             nameEat.setText(getIntent().getStringExtra(KEY_NAME));
-            frase.setText("Comida saludable. ¡Bien hecho!");
             img.setImageResource(R.drawable.like);
-        }
-        else{
+        } else {
             nameEat.setText(getIntent().getStringExtra(KEY_NAME));
-            frase.setText("Comida no saludable. Eso te irá a las caderas.");
             img.setImageResource(R.drawable.dislike);
         }
-        if(checkWeek){
-            fraseSemana.setText("Vas bien con la dieta de la semana");
-        }
-        else{
-            fraseSemana.setText("Vas mal con la dieta de la semana");
-        }
+        frase.setText(getIntent().getStringExtra(KEY_FRASE_DAY));
+        fraseSemana.setText(getIntent().getStringExtra(KEY_FRASE_WEEK));
         proteinas.setText(getIntent().getStringExtra(KEY_PROTEINAS));
         calorias.setText(getIntent().getStringExtra(KEY_CALORIAS));
         grasas.setText(getIntent().getStringExtra(KEY_GRASAS));
